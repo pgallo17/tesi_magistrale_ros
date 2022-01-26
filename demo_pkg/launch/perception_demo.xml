@@ -1,0 +1,29 @@
+<launch>
+    <!-- Arguments -->
+    <arg name="node_start_delay" default="5.0" />  
+
+    <!-- Pepper Nodes -->
+    <node pkg="demo_pkg" name="wakeup_node" type="wakeup_node.py"/>
+    <node pkg="demo_pkg" name="console_webview_node" type="console_webview_node.py" output="screen"/>
+    <node pkg="demo_pkg" name="motion_node" type="motion_node.py"/>
+
+    <!-- Video Pipeline -->
+    <node pkg="demo_pkg" name="image_input_node" type="image_input_node.py"/>
+    <node pkg="demo_pkg" name="face_detector_node" type="face_detector_node.py"/>
+    <node pkg="demo_pkg" name="multitask_network_node" type="multitask_network_node.py"/>
+    
+    <!-- Audio Pipeline -->
+    <node pkg="demo_pkg" name="microphone_node" type="microphone_node.py" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' "/>
+    <node pkg="demo_pkg" name="hotword_search_node" type="hotword_search_node.py" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' ">
+        <param name="--kws_model" value="NaoQi" />
+    </node>
+    <node pkg="demo_pkg" name="speech_detection_node" type="speech_detection_node.py" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' "/>
+    <node pkg="demo_pkg" name="speech_analysis_node" type="speech_analysis_node.py" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' "/>
+    <node pkg="demo_pkg" name="audio_fusion_node" type="audio_fusion_node.py" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' "/>
+
+    <!-- Application Layer -->
+    <node pkg="demo_pkg" name="sensor_aggregation_node" type="sensor_aggregation_node.py"/>
+    <node pkg="demo_pkg" name="reidentification_node" type="reidentification_node.py"/>
+    <node pkg="demo_pkg" name="state_model_node" type="state_model_node.py" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@'" />
+
+</launch>

@@ -1,0 +1,6 @@
+float32[] embedding
+string identity
+string input_type
+float32 duration
+---
+string log

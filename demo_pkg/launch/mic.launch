@@ -1,0 +1,5 @@
+<launch>
+
+    <arg name="node_start_delay" default="5.0" />
+    <node pkg="demo_pkg" name="microphone_node" type="microphone_node.py"/>
+</launch>

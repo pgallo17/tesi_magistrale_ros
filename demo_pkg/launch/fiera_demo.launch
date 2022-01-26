@@ -1,0 +1,40 @@
+<launch>
+
+    <arg name="node_start_delay" default="5.0" />
+
+    <!-- ATTENZIONE: Dialog Tracker impostato a 60 -->
+    <!-- Main -->
+    <node pkg="demo_pkg" name="reset_node" type="reset_node.py"/>
+    <node pkg="demo_pkg" name="motion_node" type="motion_node.py"/>
+
+    <!-- Pepper -->
+    <node pkg="demo_pkg" name="wakeup_node" type="wakeup_node.py"/>
+    <node pkg="demo_pkg" name="following_node" type="following_node.py"/>
+    <node pkg="demo_pkg" name="pepper_events_node" type="pepper_events_node.py"/>
+    <node pkg="demo_pkg" name="pepper_eye_mng" type="pepper_eye_mng.py" output="screen"/>    
+    <node pkg="demo_pkg" name="speech_synthesis_node" type="speech_synthesis_node.py"/>
+
+    <!-- Video pipe -->
+    <node pkg="demo_pkg" name="image_input_node" type="image_input_node.py"/>
+    <node pkg="demo_pkg" name="face_detector_node" type="face_detector_node.py" output="screen"/>
+    <node pkg="demo_pkg" name="multitask_network_node" type="multitask_network_node.py" output="screen"/>
+    <node pkg="demo_pkg" name="console_webview_node" type="console_webview_node.py" output="screen"/>
+
+    <!-- Audio Pipeline -->
+
+    <node pkg="demo_pkg" name="microphone_node" type="microphone_node.py"/>
+    <node pkg="demo_pkg" name="speech_detection_node" type="speech_detection_node.py" output="screen"/>
+    <node pkg="demo_pkg" name="speech_recognition_publisher" type="speech_recognition_publisher.py"/>
+    
+    <!-- Dialogue -->
+    <env name="CUDA_VISIBLE_DEVICES" value="" />
+    
+    <node pkg="demo_pkg" name="rasa_server" type="rasa_server.sh" output="screen"/>
+    <node pkg="demo_pkg" name="rasa_action" type="rasa_action.sh" output="screen"/>
+    <node pkg="demo_pkg" name="dialogue_node" type="dialogue_service.py" output="screen"/>
+    
+    <!-- Others -->
+    <!-- <node pkg="demo_pkg" name="store_video_node" type="store_video_node.py" output="screen" /> -->
+    <node pkg="demo_pkg" name="fiera_main_node" type="fiera_main_node.py" output="screen" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@'"/>
+    <node pkg="demo_pkg" name="watchdog" type="watchdog.py" output="screen" launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@'"/>
+</launch>

@@ -1,0 +1,7 @@
+string interlocutor_id
+string meta
+string spoken_text
+---
+string answer
+string intent
+string slots

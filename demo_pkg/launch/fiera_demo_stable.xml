@@ -1,0 +1,23 @@
+<launch>
+    <!-- Pepper -->
+    <node pkg="demo_pkg" name="following_node" type="following_node.py"/>
+
+    <!-- Video pipe -->
+    <node pkg="demo_pkg" name="image_input_node" type="image_input_node.py" output="screen"/>
+    <node pkg="demo_pkg" name="face_detector_node" type="face_detector_node.py" output="screen"/>
+    <node pkg="demo_pkg" name="multitask_network_node" type="multitask_network_node.py" output="screen"/>
+
+    <!-- Audio Pipeline -->
+    <node pkg="demo_pkg" name="wakeup_node" type="wakeup_node.py"/>
+
+    <node pkg="demo_pkg" name="microphone_node" type="microphone_node.py"/>
+
+    <node pkg="demo_pkg" name="speech_synthesis_node" type="speech_synthesis_node.py"/>
+    
+    <!-- Dialogue -->
+    <env name="CUDA_VISIBLE_DEVICES" value="" />
+    
+    <node pkg="demo_pkg" name="rasa_server" type="rasa_server.sh" output="screen"/>
+    <node pkg="demo_pkg" name="rasa_action" type="rasa_action.sh" output="screen"/>
+    <node pkg="demo_pkg" name="dialogue_node" type="dialogue_service.py" output="screen"/>
+</launch>

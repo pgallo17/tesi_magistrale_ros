@@ -1,0 +1,4 @@
+float32[] embedding
+string input_type
+---
+string identity

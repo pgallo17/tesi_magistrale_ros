@@ -1,0 +1,22 @@
+<launch>
+
+    <arg name="node_start_delay" default="5.0" />
+
+    <!-- ATTENZIONE: Dialog Tracker impostato a 60 -->
+    <!-- Main -->
+    <!-- <node pkg="demo_pkg" name="reset_node" type="reset_node.py"/>
+    <node pkg="demo_pkg" name="motion_node" type="motion_node.py"/> -->
+
+    <!-- Pepper -->
+    <!-- <node pkg="demo_pkg" name="wakeup_node" type="wakeup_node.py"/>
+    <node pkg="demo_pkg" name="following_node" type="following_node.py"/>
+    <node pkg="demo_pkg" name="pepper_events_node" type="pepper_events_node.py"/>
+    <node pkg="demo_pkg" name="pepper_eye_mng" type="pepper_eye_mng.py" output="screen"/>    
+    <node pkg="demo_pkg" name="speech_synthesis_node" type="speech_synthesis_node.py"/> -->
+
+    <!-- Video pipe -->
+    <node pkg="demo_pkg" name="image_input_node" type="image_input_node.py"/>
+    <node pkg="demo_pkg" name="face_detector_node" type="face_detector_node.py" output="screen"/>
+    <node pkg="demo_pkg" name="multitask_network_node" type="multitask_network_node.py" output="screen"/>
+    <!-- <node pkg="demo_pkg" name="console_webview_node" type="console_webview_node.py" output="screen"/> -->
+</launch>
