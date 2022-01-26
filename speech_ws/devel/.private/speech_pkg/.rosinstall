@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/tesi_magistrale_ros/speech_ws/devel/.private/speech_pkg/setup.sh

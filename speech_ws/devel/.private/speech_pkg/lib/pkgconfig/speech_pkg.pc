@@ -1,0 +1,8 @@
+prefix=/home/tesi_magistrale_ros/speech_ws/devel/.private/speech_pkg
+
+Name: speech_pkg
+Description: Description of speech_pkg
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

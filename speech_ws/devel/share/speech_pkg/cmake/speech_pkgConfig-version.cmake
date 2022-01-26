@@ -1,0 +1,1 @@
+/home/tesi_magistrale_ros/speech_ws/devel/.private/speech_pkg/share/speech_pkg/cmake/speech_pkgConfig-version.cmake

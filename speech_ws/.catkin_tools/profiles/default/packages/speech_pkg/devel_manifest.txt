@@ -1,0 +1,5 @@
+speech_pkg
+/home/tesi_magistrale_ros/speech_ws/devel/.private/speech_pkg/cmake.lock /home/tesi_magistrale_ros/speech_ws/devel/./cmake.lock
+/home/tesi_magistrale_ros/speech_ws/devel/.private/speech_pkg/share/speech_pkg/cmake/speech_pkgConfig-version.cmake /home/tesi_magistrale_ros/speech_ws/devel/share/speech_pkg/cmake/speech_pkgConfig-version.cmake
+/home/tesi_magistrale_ros/speech_ws/devel/.private/speech_pkg/share/speech_pkg/cmake/speech_pkgConfig.cmake /home/tesi_magistrale_ros/speech_ws/devel/share/speech_pkg/cmake/speech_pkgConfig.cmake
+/home/tesi_magistrale_ros/speech_ws/devel/.private/speech_pkg/lib/pkgconfig/speech_pkg.pc /home/tesi_magistrale_ros/speech_ws/devel/lib/pkgconfig/speech_pkg.pc

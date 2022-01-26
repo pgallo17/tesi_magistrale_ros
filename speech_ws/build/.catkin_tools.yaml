@@ -1,0 +1,6 @@
+devel_space: /home/tesi_magistrale_ros/speech_ws/devel
+install: false
+install_space: /home/tesi_magistrale_ros/speech_ws/install
+profile: default
+source_space: /home/tesi_magistrale_ros/speech_ws/src
+workspace: /home/tesi_magistrale_ros/speech_ws

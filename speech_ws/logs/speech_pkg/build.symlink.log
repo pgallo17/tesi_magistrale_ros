@@ -1,0 +1,3 @@
+Symlinking /home/tesi_magistrale_ros/speech_ws/devel/share/speech_pkg/cmake/speech_pkgConfig-version.cmake
+Symlinking /home/tesi_magistrale_ros/speech_ws/devel/share/speech_pkg/cmake/speech_pkgConfig.cmake
+Symlinking /home/tesi_magistrale_ros/speech_ws/devel/lib/pkgconfig/speech_pkg.pc
