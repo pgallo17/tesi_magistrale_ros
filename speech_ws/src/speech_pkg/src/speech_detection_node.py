@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import rospy
-from demo_pkg.msg import SpeechData
+from speech_pkg.msg import SpeechData
 from std_msgs.msg import Int16MultiArray, String
 
 from demo_utils.io.audio import SpeechRecognitionVAD
