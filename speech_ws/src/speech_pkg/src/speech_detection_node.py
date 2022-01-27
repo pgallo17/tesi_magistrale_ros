@@ -8,6 +8,7 @@ from demo_utils.io.respeaker import ReSpeakerMicArrayV2
 from demo_utils.ai.audio.voice_activity_detector.silero_vad import SileroVAD
 from settings import demo_settings
 from speech_recognition import AudioSource
+from speech_pkg.srv import *
 
 import numpy as np
 from time import sleep
@@ -147,6 +148,9 @@ class SpeechDetectionNode:
             rospy.logdebug('Speech published with timestamps')
 
 if __name__ == '__main__':
+    rospy.loginfo("Waiting manager service")
+    rospy.wait_for_service('manager')
+    manger_service = rospy.ServiceProxy('manager', Manager)
     speech_detection = SpeechDetectionNode()
     speech_detection.start()
     
