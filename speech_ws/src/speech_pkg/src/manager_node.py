@@ -15,5 +15,5 @@ if __name__ == "__main__":
     rospy.wait_for_service('speech_service')
     rospy.Service('manager_service', Manager, run)
     classify = rospy.ServiceProxy('classifier_service', Classification)
-    speech = rospy.ServiceProxy('speech_service', srv)
+    speech = rospy.ServiceProxy('speech_service', Talker)
     rospy.spin()
