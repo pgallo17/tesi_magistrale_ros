@@ -76,7 +76,7 @@ class Microphone:
             format=pa.paInt16,
             channels=1,
             input=True,
-            input_device_index=1, #TODO
+            input_device_index=24, #TODO
             stream_callback=None,
         )
 
