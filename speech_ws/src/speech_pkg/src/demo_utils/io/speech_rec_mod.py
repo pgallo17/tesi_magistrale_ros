@@ -59,16 +59,18 @@ class TimedRecognizer(Recognizer):
                         # detect whether speaking has started on audio input
                         energy = audioop.rms(buffer, source.SAMPLE_WIDTH)  # energy of the audio signal
                         is_speech = energy > self.energy_threshold
+
+                        # dynamically adjust the energy threshold using asymmetric weighted average
+                        if self.dynamic_energy_threshold:
+                            damping = self.dynamic_energy_adjustment_damping ** seconds_per_buffer  # account for different chunk sizes and rates
+                            target_energy = energy * self.dynamic_energy_ratio
+                            self.energy_threshold = self.energy_threshold * damping + target_energy * (1 - damping)
                     else:
                         is_speech = vad.is_speech(buffer)
 
                     if is_speech: break
 
-                    # dynamically adjust the energy threshold using asymmetric weighted average
-                    if self.dynamic_energy_threshold:
-                        damping = self.dynamic_energy_adjustment_damping ** seconds_per_buffer  # account for different chunk sizes and rates
-                        target_energy = energy * self.dynamic_energy_ratio
-                        self.energy_threshold = self.energy_threshold * damping + target_energy * (1 - damping)
+
             else:
                 # read audio input until the hotword is said
                 snowboy_location, snowboy_hot_word_files = snowboy_configuration
