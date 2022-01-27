@@ -46,6 +46,6 @@ class Classifier:
         rospy.spin()
 
 if __name__ == "__main__":
-    exp_dir = r"C:\MIE CARTELLE\PROGRAMMAZIONE\GITHUB\tesi_magistrale\nemo_experiments\MatchboxNet-3x2x64\2022-01-19_23-29-46"
+    exp_dir = r"/home/tesi_magistrale_ros/speech_ws/src/speech_pkg/experiments/2022-01-19_23-29-46"
     ckpt = r"matchcboxnet--val_loss=0.369-epoch=249.model"
     classifier = Classifier(exp_dir, ckpt)
