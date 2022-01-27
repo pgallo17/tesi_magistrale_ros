@@ -24,6 +24,7 @@ class Classifier:
         return signal_torch, signal_size_torch
 
     def convert(self, signal):
+        rospy.loginfo("singal:", signal)
         signal = np.array(signal)
         signal_nw = self._pcm2float(signal)
         signal_nw, signal_len = self._numpy2tensor(signal_nw)
