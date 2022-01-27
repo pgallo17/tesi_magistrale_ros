@@ -1,0 +1,4 @@
+uint8 cmd
+float32[] probs
+---
+bool flag
