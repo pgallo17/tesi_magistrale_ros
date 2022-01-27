@@ -5,6 +5,8 @@ import torch
 from torch.utils.data import DataLoader
 import numpy as np
 from model import Model
+import sys
+sys.path.append(r"/home/tesi_magistrale_ros/speech_ws/src/speech_pkg/src")
 
 def infer_signal(model, signal):
     data_layer.set_signal(signal)
