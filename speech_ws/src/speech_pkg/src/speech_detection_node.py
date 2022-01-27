@@ -84,7 +84,7 @@ class SpeechDetectionNode:
         rospy.init_node('speech_detection_node')
 
         # ReSpeaker interface initialization
-        self.respeaker = ReSpeakerMicArrayV2()
+        # self.respeaker = ReSpeakerMicArrayV2()
 
         # Auxiliary VAD
         silero = SileroVAD(
@@ -116,7 +116,7 @@ class SpeechDetectionNode:
         rospy.Subscriber("events", String, self.events_mng)
 
         # Environment calibration
-        # self.speechRecognition.calibrate()
+        self.speechRecognition.calibrate()
 
 
         # Loop
