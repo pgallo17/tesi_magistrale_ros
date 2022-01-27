@@ -5,6 +5,8 @@ from nemo.collections.asr.models.classification_models import EncDecClassificati
 from nemo.collections.asr.parts.preprocessing.perturb import Perturbation, register_perturbation, process_augmentations
 from nemo.collections.asr.data import audio_to_label_dataset
 from nemo.collections.common.losses import CrossEntropyLoss
+from nemo.collections.asr.modules import ConvASRDecoderClassification
+from nemo.core.classes.common import typecheck
 import pandas as pd
 from typing import Any, Callable, Dict, Optional, Union
 from pytorch_lightning.core.saving import inspect, parse_class_init_keys, CHECKPOINT_PAST_HPARAMS_KEYS, \
@@ -14,6 +16,20 @@ from omegaconf import OmegaConf
 import logging
 
 MAXSIZE = 2**32-1
+
+class Decoder(ConvASRDecoderClassification):
+
+    @typecheck()
+    def forward(self, encoder_output):
+        batch, in_channels, timesteps = encoder_output.size()
+
+        encoder_output = self.pooling(encoder_output).view(batch, in_channels)  # [B, C]
+        logits = self.decoder_layers(encoder_output)  # [B, num_classes]
+
+        if not self._return_logits:
+            raise Exception("return logits param must be TRUE")
+
+        return logits
 
 class Model(EncDecClassificationModel):
 
