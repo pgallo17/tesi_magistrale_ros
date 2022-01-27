@@ -133,6 +133,7 @@ class SpeechDetectionNode:
             speech, timestamps = self.speechRecognition.get_speech_frame()
             print("speech:", speech, timestamps)
             if speech is None:
+                print("qui")
                 continue
                 
             # Disable
