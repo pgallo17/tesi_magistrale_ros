@@ -92,6 +92,7 @@ class Microphone:
             audio_chunk = self.stream.read(FRAMES_PER_BUFFER)
             audio_data = np.frombuffer(audio_chunk, np.int16)
             audio_int16.extend(audio_data)
+        print("End recording")
         audio_int16 = np.array(audio_int16)
         audio_float32 = self.int2float(audio_int16)
         logits = infer_signal(model, audio_float32)
