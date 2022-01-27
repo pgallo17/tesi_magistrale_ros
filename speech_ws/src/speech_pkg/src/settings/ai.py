@@ -26,7 +26,7 @@ ai.audio.speech_rec.timeout = 5
 ai.audio.speaker_identification.model = '/home/nvidia/DemoFramework/demo_ws/src/demo_pkg/models/audio/speaker_identification/vosk-model-spk-0.4'
 
 ############### VOICE ACTIV ################
-ai.audio.vad.model = r"C:\Users\desio\Downloads\demo_ws\demo_ws\src\demo_pkg\vad\silero_vad.jit"
+ai.audio.vad.model = r"C:\MIE CARTELLE\PROGRAMMAZIONE\GITHUB\tesi_magistrale_ros\speech_ws\src\speech_pkg\vad\silero_vad.jit"
 ai.audio.vad.threshold = 0.5
 ai.audio.vad.sampling_rate = 16000
 ai.audio.vad.device = 'cpu'
