@@ -3,6 +3,7 @@ import torch
 from typing import List
 import torch.nn.functional as F
 import warnings
+import numpy as np
 
 
 class SileroVAD(VoiceActivityDetector):
