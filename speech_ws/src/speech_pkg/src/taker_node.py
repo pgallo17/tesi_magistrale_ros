@@ -4,6 +4,7 @@ import rospy
 # import qi
 import commands
 from settings import pepper
+from speech_pkg.srv import *
 
 def get_command_str(index):
     return commands_list[index]
