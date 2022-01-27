@@ -90,12 +90,12 @@ class Microphone:
             audio_data = np.frombuffer(audio_chunk, np.int16)
             audio_int16.extend(audio_data)
         audio_int16 = np.array(audio_int16)
-        audio_float32 = self.int2float(audio_int16)
-        logits = infer_signal(model, audio_float32)
-        soft = model.predict(logits)
-        soft = soft.cpu().detach().numpy()
-        cmd = np.argmax(soft, axis=1)
-        print(cmd)
+        # audio_float32 = self.int2float(audio_int16)
+        # logits = infer_signal(model, audio_float32)
+        # soft = model.predict(logits)
+        # soft = soft.cpu().detach().numpy()
+        # cmd = np.argmax(soft, axis=1)
+        print(audio_int16)
 
 if __name__ == "__main__":
     #CONSTANT
@@ -106,10 +106,10 @@ if __name__ == "__main__":
     CHANNELS = 1
     FRAMES_PER_BUFFER = 1024
     SR = 16000
-    exp_dir = r"C:\MIE CARTELLE\PROGRAMMAZIONE\GITHUB\tesi_magistrale\nemo_experiments\MatchboxNet-3x2x64\2022-01-19_23-29-46"
-    ckpt = "matchcboxnet--val_loss=0.369-epoch=249.model"
-    model = Model.load_backup(ckpt, exp_dir)
-    model = model.eval()
-    model = model.cuda()
+    # exp_dir = r"C:\MIE CARTELLE\PROGRAMMAZIONE\GITHUB\tesi_magistrale\nemo_experiments\MatchboxNet-3x2x64\2022-01-19_23-29-46"
+    # ckpt = "matchcboxnet--val_loss=0.369-epoch=249.model"
+    # model = Model.load_backup(ckpt, exp_dir)
+    # model = model.eval()
+    # model = model.cuda()
     mic = Microphone()
     mic.loop()
