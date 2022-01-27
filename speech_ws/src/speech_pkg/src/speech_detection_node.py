@@ -116,7 +116,7 @@ class SpeechDetectionNode:
         rospy.Subscriber("events", String, self.events_mng)
 
         # Environment calibration
-        self.speechRecognition.calibrate()
+        # self.speechRecognition.calibrate()
 
 
         # Loop
