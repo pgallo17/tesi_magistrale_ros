@@ -1,0 +1,1 @@
+matchboxnet.py --config matchboxnet_3x2x64.yaml --id 7nw250e0 --lang eng
