@@ -40,7 +40,7 @@ class Classifier:
 
     def init_node(self):
         rospy.init_node('classifier')
-        s = rospy.Service('add_two_ints', Classification, self.parse_req)
+        s = rospy.Service('classifier_service', Classification, self.parse_req)
         rospy.spin()
 
 if __name__ == "__main__":
