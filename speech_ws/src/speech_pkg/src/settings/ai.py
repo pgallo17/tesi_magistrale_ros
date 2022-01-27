@@ -1,5 +1,5 @@
 from dotmap import DotMap
-from global_utils import get_curr_dir
+from .global_utils import get_curr_dir
 from pathlib import Path
 
 ai = DotMap()
