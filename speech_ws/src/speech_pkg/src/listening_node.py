@@ -105,7 +105,7 @@ if __name__ == "__main__":
     FORMAT = pa.paInt32
     CHANNELS = 1
     FRAMES_PER_BUFFER = 1024
-    SR = 48000
+    SR = 16000
     # exp_dir = r"C:\MIE CARTELLE\PROGRAMMAZIONE\GITHUB\tesi_magistrale\nemo_experiments\MatchboxNet-3x2x64\2022-01-19_23-29-46"
     # ckpt = "matchcboxnet--val_loss=0.369-epoch=249.model"
     # model = Model.load_backup(ckpt, exp_dir)
