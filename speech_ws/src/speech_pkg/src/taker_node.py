@@ -15,6 +15,7 @@ def callback(req):
     return TalkerResponse(True)
 
 if __name__ == "__main__":
+    rospy.init_node('talker')
     lang: str = pepper.speech.language
     commands_list = commands.command_eng if lang.lower() == "eng" else commands.command_ita
 
