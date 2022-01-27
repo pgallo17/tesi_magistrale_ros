@@ -23,7 +23,8 @@ class Classifier:
         signal_size_torch = torch.as_tensor(signal_size, dtype=torch.int64)
         return signal_torch, signal_size_torch
 
-    def convert(self, signal: np.ndarray):
+    def convert(self, signal):
+        signal = np.array(signal)
         signal_nw = self._pcm2float(signal)
         signal_nw, signal_len = self._numpy2tensor(signal_nw)
         return signal_nw, signal_len
