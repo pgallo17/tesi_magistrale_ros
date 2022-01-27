@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from model import Model
 import numpy as np
 from nemo.collections.asr.parts.preprocessing.segment import AudioSegment
