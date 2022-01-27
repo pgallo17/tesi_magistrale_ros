@@ -6,6 +6,7 @@ from torch.utils.data import DataLoader
 import numpy as np
 from model import Model
 import sys
+import time
 sys.path.append(r"/home/tesi_magistrale_ros/speech_ws/src/speech_pkg/src")
 
 def infer_signal(model, signal):
@@ -86,6 +87,7 @@ class Microphone:
 
     def loop(self):
         audio_int16 = []
+        time.sleep(2)
         print("Started Recording")
         for i in range(50):
             audio_chunk = self.stream.read(FRAMES_PER_BUFFER)
