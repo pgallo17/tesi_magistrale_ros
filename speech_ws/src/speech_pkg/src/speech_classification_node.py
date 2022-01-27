@@ -42,7 +42,7 @@ class Classifier:
         return cmd, probs
 
     def parse_req(self, req):
-        signal, signal_len = self.convert(req.data)
+        signal, signal_len = self.convert(req.data.data)
         cmd, probs = self.predict_cmd(signal, signal_len)
         return ClassificationResponse(cmd, probs)
 
