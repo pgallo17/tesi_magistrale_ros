@@ -150,7 +150,7 @@ if __name__ == '__main__':
     print("Waiting manager service")
     rospy.wait_for_service('manager_service')
     print("manager service found")
-    manger_service = rospy.ServiceProxy('manager', Manager)
+    manger_service = rospy.ServiceProxy('manager_service', Manager)
     speech_detection = SpeechDetectionNode()
     speech_detection.start()
     
