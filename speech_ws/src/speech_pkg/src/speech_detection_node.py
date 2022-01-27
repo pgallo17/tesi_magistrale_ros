@@ -121,7 +121,7 @@ class SpeechDetectionNode:
 
         # Loop
         print("before loop")
-        self.enabled = True
+        self.enabled = False
         while not rospy.is_shutdown():
             print("in loop")
             if not self.enabled:
