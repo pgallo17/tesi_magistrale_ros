@@ -14,8 +14,13 @@ class Classifier:
         self.model = self.model.cuda()
         self.init_node()
 
-    def _pcm2float(self, sig: np.ndarray):
-        return AudioSegment._convert_samples_to_float32(sig)
+    def _pcm2float(self, sound: np.ndarray):
+        abs_max = np.abs(sound).max()
+        sound = sound.astype('float32')
+        if abs_max > 0:
+            sound *= 1 / abs_max
+        sound = sound.squeeze()  # depends on the use case
+        return sound
 
     def _numpy2tensor(self, signal: np.ndarray):
         signal_size = signal.size
