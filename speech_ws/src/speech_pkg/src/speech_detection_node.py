@@ -140,10 +140,9 @@ class SpeechDetectionNode:
             msg.doa = 0 #self.respeaker.get_doa() - 90
             msg.start_time = timestamps[0]
             msg.end_time = timestamps[1]
-            print("publishing")
 
             # Message publishing
-            pub.publish(msg)
+            manger_service(msg)
 
             rospy.logdebug('Speech published with timestamps')
 
