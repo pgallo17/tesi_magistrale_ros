@@ -1,0 +1,4 @@
+speech_pkg/SpeechData data
+---
+uint8 cmd
+float32[] probs
