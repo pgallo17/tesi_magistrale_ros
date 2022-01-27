@@ -40,6 +40,7 @@ class SileroVAD(VoiceActivityDetector):
             if len(audio.shape) > 1:
                 raise ValueError("More than one dimension in audio. Are you trying to process audio with 2 channels?")
 
+        print(self.device)
         audio = audio.device(self.device)
         self.model.reset_states()
         speech_prob = self.model(audio, self.sampling_rate).item()
