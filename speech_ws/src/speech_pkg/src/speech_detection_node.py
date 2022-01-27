@@ -111,7 +111,7 @@ class SpeechDetectionNode:
             ),
             vad = silero
         )
-
+        print("vad loaded")
         # Events broker subscription
         rospy.Subscriber("events", String, self.events_mng)
 
