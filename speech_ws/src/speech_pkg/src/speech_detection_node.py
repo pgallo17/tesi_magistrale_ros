@@ -109,7 +109,6 @@ class SpeechDetectionNode:
                 demo_settings.io.speech.sample_rate,
                 demo_settings.io.speech.chunk_size
             ),
-            vad = silero
         )
         print("vad loaded")
         # Events broker subscription
@@ -117,7 +116,6 @@ class SpeechDetectionNode:
 
         # Environment calibration
         self.speechRecognition.calibrate()
-
 
         # Loop
         print("before loop")
