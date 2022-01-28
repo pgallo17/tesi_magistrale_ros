@@ -130,7 +130,7 @@ if __name__ == "__main__":
     FRAMES_PER_BUFFER = 1024
     SR = 16000
     exp_dir = r"/home/tesi_magistrale_ros/speech_ws/src/speech_pkg/experiments/2022-01-20_10-49-51"
-    ckpt = "matchcboxnet--val_loss=0.8493-epoch=249.model"
+    ckpt = "matchcboxnet--val_loss=0.34-epoch=231.model"
     model = Model.load_backup(ckpt, exp_dir)
     model = model.eval()
     model = model.cuda()

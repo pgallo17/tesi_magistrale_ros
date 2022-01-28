@@ -1,0 +1,198 @@
+cfg:
+  sample_rate: 16000
+  timesteps: 128
+  repeat: 2
+  dropout: 0.0
+  kernel_size_factor: 1.0
+  labels:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  lang: ita
+  train_ds:
+    pin_memory: true
+    manifest_filepath: /user/gdesimone/tesi_-magistrale/manifests/train_ita_manifest.json
+    sample_rate: 16000
+    labels:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    - 11
+    - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    - 18
+    - 19
+    - 20
+    - 21
+    - 22
+    - 23
+    - 24
+    - 25
+    - 26
+    - 27
+    - 28
+    batch_size: 1024
+    shuffle: false
+    is_tarred: false
+    tarred_audio_filepaths: null
+    tarred_shard_strategy: scatter
+    augmentor:
+      shift:
+        prob: 1.0
+        min_shift_ms: -5.0
+        max_shift_ms: 5.0
+      mynoise:
+        prob: 1.0
+        seed: 100
+        max_gain_db: 300
+        max_snr: 50
+        min_snr: 0
+        train_frac: 0.7
+        val_frac: 0.15
+        test_frac: 0.15
+        dataset_path_real: /user/gdesimone/tesi_-magistrale/dataset/Dataset_real_conv
+        dataset_path_synth: /user/gdesimone/tesi_-magistrale/dataset/Dataset_synth_conv
+        dataset_path_reject: /user/gdesimone/tesi_-magistrale/dataset/common_voices
+        lang: ita
+        sample_rate: 16000
+  preprocessor:
+    _target_: nemo.collections.asr.modules.AudioToMFCCPreprocessor
+    window_size: 0.025
+    window_stride: 0.01
+    window: hann
+    n_mels: 64
+    n_mfcc: 64
+    n_fft: 512
+  encoder:
+    _target_: nemo.collections.asr.modules.ConvASREncoder
+    feat_in: 64
+    activation: relu
+    conv_mask: true
+    jasper:
+    - filters: 128
+      repeat: 1
+      kernel:
+      - 11
+      stride:
+      - 1
+      dilation:
+      - 1
+      dropout: 0.0
+      residual: false
+      separable: true
+      kernel_size_factor: 1.0
+    - filters: 64
+      repeat: 2
+      kernel:
+      - 13
+      stride:
+      - 1
+      dilation:
+      - 1
+      dropout: 0.0
+      residual: true
+      separable: true
+      kernel_size_factor: 1.0
+    - filters: 64
+      repeat: 2
+      kernel:
+      - 15
+      stride:
+      - 1
+      dilation:
+      - 1
+      dropout: 0.0
+      residual: true
+      separable: true
+      kernel_size_factor: 1.0
+    - filters: 64
+      repeat: 2
+      kernel:
+      - 17
+      stride:
+      - 1
+      dilation:
+      - 1
+      dropout: 0.0
+      residual: true
+      separable: true
+      kernel_size_factor: 1.0
+    - filters: 128
+      repeat: 1
+      kernel:
+      - 29
+      stride:
+      - 1
+      dilation:
+      - 2
+      dropout: 0.0
+      residual: false
+      separable: true
+      kernel_size_factor: 1.0
+    - filters: 128
+      repeat: 1
+      kernel:
+      - 1
+      stride:
+      - 1
+      dilation:
+      - 1
+      dropout: 0.0
+      residual: false
+  decoder:
+    _target_: model.Decoder
+    feat_in: 128
+    return_logits: true
+    pooling_type: avg
+  optim:
+    name: novograd
+    lr: 0.03
+    betas:
+    - 0.95
+    - 0.5
+    weight_decay: 0.001
+    sched:
+      name: PolynomialHoldDecayAnnealing
+      power: 2.0
+      warmup_ratio: 0.05
+      hold_ratio: 0.45
+      min_lr: 0.0006
+      last_epoch: -1
