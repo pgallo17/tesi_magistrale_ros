@@ -131,13 +131,12 @@ class SpeechDetectionNode:
             # Get speech data
             speech, timestamps = self.speechRecognition.get_speech_frame()
             print("speech:", speech, timestamps)
-            speech_save = np.reshape(speech.copy(), (-1, 1))
-            sf.write(f"/home/files/{i}.wav", data=speech_save, samplerate=16000, format="WAV")
 
             if speech is None:
                 continue
-
             i += 1
+            speech_save = np.reshape(speech.copy(), (-1, 1))
+            sf.write(f"/home/files/{i}.wav", data=speech_save, samplerate=16000, format="WAV")
             # Disable
             self.enabled = False
             event_pub.publish("VAD/Disabled")
