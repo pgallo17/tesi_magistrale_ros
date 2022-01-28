@@ -106,7 +106,9 @@ class Microphone:
                 cmd_str = "I do not understand"
             else:
                 cmd_str = commands_list[cmd]
+            print("*"*30)
             print(cmd_str)
+            print("*" * 30)
             self.stream.close()
             time.sleep(0.5)
             self.stream = self.open_stream()
