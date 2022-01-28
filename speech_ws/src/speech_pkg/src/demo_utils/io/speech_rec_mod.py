@@ -6,7 +6,8 @@ import collections
 import audioop
 import time
 import numpy as np
-import os 
+import os
+import copy
 
 
 class TimedRecognizer(Recognizer):
@@ -66,7 +67,9 @@ class TimedRecognizer(Recognizer):
                             target_energy = energy * self.dynamic_energy_ratio
                             self.energy_threshold = self.energy_threshold * damping + target_energy * (1 - damping)
                     else:
-                        is_speech = vad.is_speech(buffer)
+                        print("qui")
+                        buffer_copy = copy.copy(buffer)
+                        is_speech = vad.is_speech(buffer_copy)
 
                     if is_speech: break
 
