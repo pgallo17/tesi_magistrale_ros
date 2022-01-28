@@ -25,11 +25,8 @@ class SileroVAD(VoiceActivityDetector):
 
         # Byte to numpy
         audio = np.frombuffer(buffer, dtype='int16')
-        import soundfile as sf
-        sf.write(f"/home/files/before.wav", data=audio, samplerate=16000, format="WAV")
         # int16 to foat32
         audio = audio.astype(np.float32, order='C') / 32768.0
-        sf.write(f"/home/files/after.wav", data=audio, samplerate=16000, format="WAV")
 
         if not torch.is_tensor(audio):
             try:
