@@ -102,7 +102,10 @@ class Microphone:
             soft = soft.cpu().detach().numpy()
             cmd = np.argmax(soft, axis=1)
             cmd = cmd.tolist()[0]
-            cmd_str = commands_list[cmd]
+            if cmd == 28:
+                cmd_str = "I do not understand"
+            else:
+                cmd_str = commands_list[cmd]
             print(cmd_str)
             self.stream.close()
             time.sleep(0.5)
