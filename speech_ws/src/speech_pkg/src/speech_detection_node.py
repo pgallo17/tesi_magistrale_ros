@@ -144,7 +144,7 @@ class SpeechDetectionNode:
 
             # Message publishing
             manger_service(msg)
-
+            sleep(1)
             rospy.logdebug('Speech published with timestamps')
 
 if __name__ == '__main__':
