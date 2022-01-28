@@ -136,6 +136,7 @@ class SpeechDetectionNode:
             if speech is None:
                 continue
                 
+            i += 1
             # Disable
             self.enabled = False
             event_pub.publish("VAD/Disabled")
