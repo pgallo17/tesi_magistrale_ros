@@ -57,7 +57,7 @@ speechRecognition = SpeechRecognitionVAD(
             vad=silero
         )
 rospy.init_node("silero")
-# speechRecognition.calibrate()
+speechRecognition.calibrate()
 
 i = 0
 while True:
