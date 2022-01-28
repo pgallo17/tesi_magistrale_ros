@@ -25,8 +25,10 @@ if __name__ == "__main__":
     commands_list = command_eng if lang == "eng" else command_ita
 
     # Connect to the robot
+    print("Connecting to robot...")
     session = qi.Session()
     session.connect(f"tcp://{pepper.ip}:{pepper.port}")  # Robot IP
+    print("Robot connected")
 
     # TextToSpeech service
     tts = session.service("ALTextToSpeech")
