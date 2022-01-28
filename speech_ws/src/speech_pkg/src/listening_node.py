@@ -102,6 +102,7 @@ class Microphone:
             cmd = np.argmax(soft, axis=1)
             print(cmd)
             self.stream.close()
+            time.sleep(0.5)
             self.stream = self.open_stream()
 
 if __name__ == "__main__":
