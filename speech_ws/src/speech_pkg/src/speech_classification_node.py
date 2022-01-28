@@ -2,10 +2,51 @@
 
 from model import Model
 import numpy as np
-from nemo.collections.asr.parts.preprocessing.segment import AudioSegment
+from nemo.core.neural_types import NeuralType, AudioSignal, LengthsType
+from nemo.core.classes import IterableDataset
+from torch.utils.data import DataLoader
 from speech_pkg.srv import Classification, ClassificationResponse
 import torch
 import rospy
+
+def infer_signal(model, signal):
+    data_layer.set_signal(signal)
+    batch = next(iter(data_loader))
+    audio_signal, audio_signal_len = batch
+    audio_signal, audio_signal_len = audio_signal.to(model.device), audio_signal_len.to(model.device)
+    logits = model.forward(input_signal=audio_signal, input_signal_length=audio_signal_len)
+    return logits
+
+class AudioDataLayer(IterableDataset):
+    @property
+    def output_types(self):
+        return {
+            'audio_signal': NeuralType(('B', 'T'), AudioSignal(freq=self._sample_rate)),
+            'a_sig_length': NeuralType(tuple('B'), LengthsType()),
+        }
+
+    def __init__(self, sample_rate):
+        super().__init__()
+        self._sample_rate = sample_rate
+        self.output = True
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if not self.output:
+            raise StopIteration
+        self.output = False
+        return torch.as_tensor(self.signal, dtype=torch.float32), \
+               torch.as_tensor(self.signal_shape, dtype=torch.int64)
+
+    def set_signal(self, signal):
+        self.signal = signal.astype(np.float32)
+        self.signal_shape = self.signal.size
+        self.output = True
+
+    def __len__(self):
+        return 1
 
 class Classifier:
     def __init__(self, exp_dir, ckpt):
@@ -34,16 +75,17 @@ class Classifier:
         signal_nw, signal_len = self._numpy2tensor(signal_nw)
         return signal_nw, signal_len
 
-    def predict_cmd(self, signal: torch.Tensor, signal_len: torch.Tensor):
-        logits = self.model(input_signal=signal, input_signal_len=signal_len)
+    def predict_cmd(self, signal: torch.Tensor):
+        logits = infer_signal(self.model, signal)
         probs = self.model.predict(logits)
         probs = probs.cpu().detach().numpy()
         cmd = np.argmax(probs, axis=1)
         return cmd, probs
 
     def parse_req(self, req):
-        signal, signal_len = self.convert(req.data.data)
-        cmd, probs = self.predict_cmd(signal, signal_len)
+        signal, _ = self.convert(req.data.data)
+        cmd, probs = self.predict_cmd(signal)
+        rospy.loginfo("Predict:", cmd)
         return ClassificationResponse(cmd, probs)
 
     def init_node(self):
@@ -54,4 +96,6 @@ class Classifier:
 if __name__ == "__main__":
     exp_dir = r"/home/tesi_magistrale_ros/speech_ws/src/speech_pkg/experiments/2022-01-19_23-29-46"
     ckpt = r"matchcboxnet--val_loss=0.369-epoch=249.model"
+    data_layer = AudioDataLayer(sample_rate=16000)
+    data_loader = DataLoader(data_layer, batch_size=1, collate_fn=data_layer.collate_fn)
     classifier = Classifier(exp_dir, ckpt)
