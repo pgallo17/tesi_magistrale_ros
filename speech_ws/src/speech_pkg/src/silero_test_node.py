@@ -56,12 +56,11 @@ speechRecognition = SpeechRecognitionVAD(
             ),
             vad=silero
         )
-
+rospy.init_node("silero")
 speechRecognition.calibrate()
 
 i = 0
 while True:
-    rospy.init_node("silero")
     speech, timestamps = speechRecognition.get_speech_frame()
     print("speech:", speech, timestamps)
     print("i:", i)
