@@ -6,6 +6,7 @@ from nemo.core.neural_types import NeuralType, AudioSignal, LengthsType
 from nemo.core.classes import IterableDataset
 from torch.utils.data import DataLoader
 from speech_pkg.srv import Classification, ClassificationResponse
+from settings import pepper
 import torch
 import rospy
 
@@ -49,8 +50,8 @@ class AudioDataLayer(IterableDataset):
         return 1
 
 class Classifier:
-    def __init__(self, exp_dir, ckpt):
-        self.model = Model.load_backup(ckpt, exp_dir)
+    def __init__(self):
+        self.model = self.load_model()
         self.model = self.model.eval()
         self.model = self.model.cuda()
         self.init_node()
@@ -94,9 +95,19 @@ class Classifier:
         s = rospy.Service('classifier_service', Classification, self.parse_req)
         rospy.spin()
 
+    def load_model(self):
+        if lang == "eng":
+            exp_dir = r"/home/tesi_magistrale_ros/speech_ws/src/speech_pkg/experiments/2022-01-19_23-29-46"
+            ckpt = r"matchcboxnet--val_loss=0.369-epoch=249.model"
+            model = Model.load_backup(exp_dir=exp_dir, ckpt_name=ckpt)
+        else:
+            exp_dir = r"/home/tesi_magistrale_ros/speech_ws/src/speech_pkg/experiments/2022-01-19_23-29-46"
+            ckpt = r"matchcboxnet--val_loss=0.369-epoch=249.model"
+            model = Model.load_backup(exp_dir=exp_dir, ckpt_name=ckpt)
+        return model
+
 if __name__ == "__main__":
-    exp_dir = r"/home/tesi_magistrale_ros/speech_ws/src/speech_pkg/experiments/2022-01-19_23-29-46"
-    ckpt = r"matchcboxnet--val_loss=0.369-epoch=249.model"
+
     data_layer = AudioDataLayer(sample_rate=16000)
     data_loader = DataLoader(data_layer, batch_size=1, collate_fn=data_layer.collate_fn)
-    classifier = Classifier(exp_dir, ckpt)
+    lang: str = pepper.speech.language
