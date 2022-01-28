@@ -105,11 +105,12 @@ class Classifier:
             ckpt = r"matchcboxnet--val_loss=0.8493-epoch=249.model"
             model = Model.load_backup(exp_dir=exp_dir, ckpt_name=ckpt)
         print("loaded model lang:", lang)
+        print("model loaded:", exp_dir)
         return model
 
 if __name__ == "__main__":
 
     data_layer = AudioDataLayer(sample_rate=16000)
     data_loader = DataLoader(data_layer, batch_size=1, collate_fn=data_layer.collate_fn)
-    lang: str = pepper.speech.language.lower()
+    lang =  "eng" if pepper.speech.language.lower() == "english" else "ita"
     classifier = Classifier()
