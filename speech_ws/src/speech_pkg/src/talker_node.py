@@ -27,7 +27,7 @@ if __name__ == "__main__":
     # Connect to the robot
     print("Connecting to robot...")
     session = qi.Session()
-    session.connect(f"tcp://{pepper.ip}:{pepper.port}")  # Robot IP
+    session.connect(f"tcp://%s:%s" % (pepper.ip, pepper.port))  # Robot IP
     print("Robot connected")
 
     # TextToSpeech service
