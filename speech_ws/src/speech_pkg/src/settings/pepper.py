@@ -2,7 +2,7 @@ from dotmap import DotMap
 pepper = DotMap()
 
 ############## PEPPER SETUP ###############
-pepper.ip = "10.0.1.230"
+pepper.ip = "10.0.1.214"
 pepper.port = 9559
 
 ############## PEPPER SPEECH ##############
