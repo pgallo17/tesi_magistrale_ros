@@ -79,7 +79,8 @@ class Classifier:
         probs = self.model.predict(logits)
         probs = probs.cpu().detach().numpy()
         cmd = np.argmax(probs, axis=1)
-        return cmd, probs
+        response = ClassificationResponse(cmd, probs)
+        return response
 
     def parse_req(self, req):
         signal = self.convert(req.data.data)
