@@ -43,7 +43,7 @@ silero = SileroVAD(
 
 speechRecognition = SpeechRecognitionVAD(
             device_index = demo_settings.io.speech.device_index,
-            sample_rate = demo_settings.io.speech.sample_rate,
+            sample_rate = 16000,
             chunk_size = demo_settings.io.speech.chunk_size,
             timeout = 1,
             phrase_time_limit = demo_settings.io.speech.phrase_time_limit,
@@ -51,7 +51,7 @@ speechRecognition = SpeechRecognitionVAD(
             format = demo_settings.io.speech.format,
             source=ROSMicrophoneSource(
                 demo_settings.io.speech.device_index,
-                demo_settings.io.speech.sample_rate,
+                16000,
                 demo_settings.io.speech.chunk_size
             ),
             vad=silero
@@ -68,5 +68,5 @@ while True:
         continue
     i += 1
     speech_save = np.reshape(speech.copy(), (-1, 1))
-    sf.write(f"/home/files/{i}.wav", data=speech_save, samplerate=demo_settings.io.speech.sample_rate, format="WAV")
+    sf.write(f"/home/files/{i}.wav", data=speech_save, samplerate=16000, format="WAV")
 
