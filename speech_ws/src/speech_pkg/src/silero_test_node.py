@@ -4,6 +4,8 @@ from demo_utils.ai.audio.voice_activity_detector.silero_vad import SileroVAD
 from speech_recognition import AudioSource
 import numpy as np
 import soundfile as sf
+import rospy
+from std_msgs.msg import Int16MultiArray, String
 
 class ROSMicrophoneSource(AudioSource):
 
@@ -58,6 +60,7 @@ speechRecognition.calibrate()
 
 i = 0
 while True:
+    rospy.init_node("silero")
     speech, timestamps = speechRecognition.get_speech_frame()
     print("speech:", speech, timestamps)
     print("i:", i)
