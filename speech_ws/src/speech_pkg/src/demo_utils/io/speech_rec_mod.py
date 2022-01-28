@@ -67,7 +67,6 @@ class TimedRecognizer(Recognizer):
                             target_energy = energy * self.dynamic_energy_ratio
                             self.energy_threshold = self.energy_threshold * damping + target_energy * (1 - damping)
                     else:
-                        print("qui")
                         buffer_copy = copy.copy(buffer)
                         is_speech = vad.is_speech(buffer_copy)
 
