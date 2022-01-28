@@ -86,9 +86,7 @@ class Classifier:
         cmd, probs = self.predict_cmd(signal)
         assert len(cmd) == 1
         cmd = int(cmd[0])
-        probs = probs.tolist()
-        print("Predict:", cmd)
-        print("cmd type:", type(cmd))
+        probs = probs.tolist()[0]
         print("Types:", cmd, probs)
         return ClassificationResponse(cmd, probs)
 
