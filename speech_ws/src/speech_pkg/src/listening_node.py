@@ -7,6 +7,7 @@ import numpy as np
 from model import Model
 import sys
 import time
+from commands import command_eng, command_ita
 sys.path.append(r"/home/tesi_magistrale_ros/speech_ws/src/speech_pkg/src")
 
 def infer_signal(model, signal):
@@ -100,15 +101,19 @@ class Microphone:
             soft = model.predict(logits)
             soft = soft.cpu().detach().numpy()
             cmd = np.argmax(soft, axis=1)
-            print(cmd)
+            cmd = cmd.tolist()[0]
+            cmd_str = commands_list[cmd]
+            print(cmd_str)
             self.stream.close()
             time.sleep(0.5)
             self.stream = self.open_stream()
 
 if __name__ == "__main__":
     #CONSTANT
+    lang = "eng"
     data_layer = AudioDataLayer(sample_rate=16000)
     data_loader = DataLoader(data_layer, batch_size=1, collate_fn=data_layer.collate_fn)
+    commands_list = command_eng if lang == "eng" else command_ita
     frames_to_record = 1
     FORMAT = pa.paInt32
     CHANNELS = 1
