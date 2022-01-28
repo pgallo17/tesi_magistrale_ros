@@ -112,7 +112,7 @@ class SpeechDetectionNode:
                 demo_settings.io.speech.sample_rate,
                 demo_settings.io.speech.chunk_size
             ),
-            vad=silero
+            vad=None
         )
         print("vad loaded")
         # Events broker subscription
