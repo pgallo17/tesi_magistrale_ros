@@ -32,6 +32,7 @@ if __name__ == "__main__":
 
     # TextToSpeech service
     tts = session.service("ALTextToSpeech")
+    tts.setLanguage("Italian" if lang == "ita" else "English")
 
     rospy.Service('speech_service', Talker, callback)
 
