@@ -72,10 +72,9 @@ class Classifier:
     def convert(self, signal):
         signal = np.array(signal)
         signal_nw = self._pcm2float(signal)
-        signal_nw, signal_len = self._numpy2tensor(signal_nw)
-        return signal_nw, signal_len
+        return signal_nw
 
-    def predict_cmd(self, signal: torch.Tensor):
+    def predict_cmd(self, signal: np.ndarray):
         logits = infer_signal(self.model, signal)
         probs = self.model.predict(logits)
         probs = probs.cpu().detach().numpy()
@@ -83,7 +82,7 @@ class Classifier:
         return cmd, probs
 
     def parse_req(self, req):
-        signal, _ = self.convert(req.data.data)
+        signal = self.convert(req.data.data)
         cmd, probs = self.predict_cmd(signal)
         rospy.loginfo("Predict:", cmd)
         return ClassificationResponse(cmd, probs)
