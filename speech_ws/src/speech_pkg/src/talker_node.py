@@ -10,6 +10,7 @@ def get_command_str(index):
 
 def callback(req):
     cmd_str = get_command_str(req.cmd)
+    print(cmd_str)
     tts.say(cmd_str)
     return TalkerResponse(True)
 
