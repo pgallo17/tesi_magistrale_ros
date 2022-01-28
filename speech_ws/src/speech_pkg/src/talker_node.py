@@ -3,7 +3,6 @@
 import rospy
 import qi
 from commands import command_eng, command_ita
-from settings import pepper
 from speech_pkg.srv import *
 
 def get_command_str(index):
@@ -21,7 +20,7 @@ def init_dict():
 if __name__ == "__main__":
     init_dict()
     rospy.init_node('talker')
-    lang = pepper.speech.language.lower()
+    lang = "ita"
     commands_list = command_eng if lang == "eng" else command_ita
 
     # Connect to the robot
