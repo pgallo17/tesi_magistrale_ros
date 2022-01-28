@@ -120,7 +120,7 @@ class Microphone:
 
 if __name__ == "__main__":
     #CONSTANT
-    lang = "eng"
+    lang = "ita"
     data_layer = AudioDataLayer(sample_rate=16000)
     data_loader = DataLoader(data_layer, batch_size=1, collate_fn=data_layer.collate_fn)
     commands_list = command_eng if lang == "eng" else command_ita
