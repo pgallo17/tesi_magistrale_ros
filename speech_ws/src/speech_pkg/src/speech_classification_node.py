@@ -85,6 +85,7 @@ class Classifier:
         signal = self.convert(req.data.data)
         cmd, probs = self.predict_cmd(signal)
         print("Predict:", cmd)
+        print("Types:", cmd, probs)
         return ClassificationResponse(cmd, probs)
 
     def init_node(self):
