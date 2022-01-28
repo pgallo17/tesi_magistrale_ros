@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from demo_utils.io.audio import SpeechRecognitionVAD
 from settings import demo_settings
 from demo_utils.ai.audio.voice_activity_detector.silero_vad import SileroVAD
