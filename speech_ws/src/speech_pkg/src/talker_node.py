@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import rospy
-import qi
+# import qi
 from commands import command_eng, command_ita
 from speech_pkg.srv import *
 
@@ -29,13 +29,13 @@ if __name__ == "__main__":
 
     # Connect to the robot
     print("Connecting to robot...")
-    session = qi.Session()
-    session.connect('tcp://10.0.1.214:9559')  # Robot IP
+    # session = qi.Session()
+    # session.connect('tcp://10.0.1.214:9559')  # Robot IP
     print("Robot connected")
 
     # TextToSpeech service
-    tts = session.service("ALTextToSpeech")
-    tts.setLanguage("Italian" if lang == "ita" else "English")
+    # tts = session.service("ALTextToSpeech")
+    # tts.setLanguage("Italian" if lang == "ita" else "English")
 
     rospy.Service('speech_service', Talker, callback)
 
