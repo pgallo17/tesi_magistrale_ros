@@ -6,8 +6,7 @@ from speech_pkg.srv import *
 def run(req):
     res = classify(req.data)
     cmd, probs = res.cmd, res.probs
-    req = Talker(cmd, probs)
-    res = speech(req)
+    res = speech(cmd, probs)
     return ManagerResponse(res.flag)
 
 if __name__ == "__main__":
