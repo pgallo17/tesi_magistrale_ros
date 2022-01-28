@@ -84,6 +84,8 @@ class Classifier:
     def parse_req(self, req):
         signal = self.convert(req.data.data)
         cmd, probs = self.predict_cmd(signal)
+        assert len(cmd) == 1
+        cmd = cmd[0]
         print("Predict:", cmd)
         print("cmd type:", type(cmd))
         print("Types:", cmd, probs)
