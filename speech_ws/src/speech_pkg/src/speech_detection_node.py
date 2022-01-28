@@ -147,9 +147,9 @@ class SpeechDetectionNode:
             rospy.logdebug('Speech published with timestamps')
 
 if __name__ == '__main__':
-    print("Waiting manager service")
+    rospy.loginfo("Waiting manager service")
     rospy.wait_for_service('manager_service')
-    print("manager service found")
+    rospy.loginfo("manager service found")
     manger_service = rospy.ServiceProxy('manager_service', Manager)
     speech_detection = SpeechDetectionNode()
     speech_detection.start()
