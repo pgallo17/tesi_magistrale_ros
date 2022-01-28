@@ -86,8 +86,8 @@ class Microphone:
         return stream
 
     def loop(self):
-        audio_int16 = []
         while True:
+            audio_int16 = []
             print("Started Recording")
             for i in range(55):
                 audio_chunk = self.stream.read(FRAMES_PER_BUFFER)
