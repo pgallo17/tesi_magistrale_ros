@@ -84,7 +84,7 @@ class Classifier:
     def parse_req(self, req):
         signal = self.convert(req.data.data)
         cmd, probs = self.predict_cmd(signal)
-        rospy.loginfo("Predict:", cmd)
+        print("Predict:", cmd)
         return ClassificationResponse(cmd, probs)
 
     def init_node(self):
