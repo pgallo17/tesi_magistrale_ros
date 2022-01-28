@@ -111,5 +111,5 @@ if __name__ == "__main__":
 
     data_layer = AudioDataLayer(sample_rate=16000)
     data_loader = DataLoader(data_layer, batch_size=1, collate_fn=data_layer.collate_fn)
-    lang: str = pepper.speech.language
+    lang: str = pepper.speech.language.lower()
     classifier = Classifier()
