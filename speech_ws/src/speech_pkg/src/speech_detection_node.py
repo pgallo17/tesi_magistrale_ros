@@ -9,6 +9,8 @@ from demo_utils.ai.audio.voice_activity_detector.silero_vad import SileroVAD
 from settings import demo_settings
 from speech_recognition import AudioSource
 from speech_pkg.srv import *
+from pathlib import Path
+import soundfile as sf
 
 import numpy as np
 from time import sleep
@@ -122,12 +124,15 @@ class SpeechDetectionNode:
 
         # Loop
         print("before loop")
+        i = 0
         self.enabled = True
         while not rospy.is_shutdown():
 
             # Get speech data
             speech, timestamps = self.speechRecognition.get_speech_frame()
             print("speech:", speech, timestamps)
+            sf.write(f"/home/files/{i}.wav", data=speech, samplerate=16000, format="WAV")
+
             if speech is None:
                 continue
                 

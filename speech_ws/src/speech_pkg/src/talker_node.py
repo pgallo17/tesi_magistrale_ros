@@ -10,6 +10,9 @@ def get_command_str(index):
 
 def callback(req):
     cmd_str = get_command_str(req.cmd)
+    with open("/home/files/res.txt", "a") as fil:
+        fil.write(cmd_str)
+        fil.write("\n")
     print(cmd_str)
     # tts.say(cmd_str)
     return TalkerResponse(True)
