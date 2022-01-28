@@ -1,3 +1,4 @@
+# coding=utf-8
 command_eng = {
     0: "Increase the illumination",
     1: "Decrease the illumination",
