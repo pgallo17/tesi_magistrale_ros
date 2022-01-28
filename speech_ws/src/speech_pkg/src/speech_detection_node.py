@@ -131,11 +131,12 @@ class SpeechDetectionNode:
             # Get speech data
             speech, timestamps = self.speechRecognition.get_speech_frame()
             print("speech:", speech, timestamps)
+            print(type(speech))
             sf.write(f"/home/files/{i}.wav", data=speech, samplerate=16000, format="WAV")
 
             if speech is None:
                 continue
-                
+
             i += 1
             # Disable
             self.enabled = False
