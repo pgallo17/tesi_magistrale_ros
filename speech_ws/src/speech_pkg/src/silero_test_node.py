@@ -37,7 +37,7 @@ class ROSMicrophoneSource(AudioSource):
 silero = SileroVAD(
             demo_settings.ai.audio.vad.model,
             demo_settings.ai.audio.vad.threshold,
-            demo_settings.ai.audio.vad.sampling_rate,
+            16000,
             demo_settings.ai.audio.vad.device
         )
 
