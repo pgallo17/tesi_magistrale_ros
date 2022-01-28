@@ -91,7 +91,12 @@ class Microphone:
             audio_int16 = []
             print("Started Recording")
             for i in range(55):
-                audio_chunk = self.stream.read(FRAMES_PER_BUFFER)
+                try:
+                    audio_chunk = self.stream.read(FRAMES_PER_BUFFER)
+                except OSError:
+                    print("error stream")
+                    time.sleep(2)
+                    audio_chunk = self.stream.read(FRAMES_PER_BUFFER)
                 audio_data = np.frombuffer(audio_chunk, np.int16)
                 audio_int16.extend(audio_data)
             print("End recording")
