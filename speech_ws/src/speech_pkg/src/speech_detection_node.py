@@ -131,10 +131,10 @@ class SpeechDetectionNode:
             # Get speech data
             speech, timestamps = self.speechRecognition.get_speech_frame()
             print("speech:", speech, timestamps)
+            print("i:", i)
 
             if speech is None:
                 continue
-            i += 1
             speech_save = np.reshape(speech.copy(), (-1, 1))
             sf.write(f"/home/files/{i}.wav", data=speech_save, samplerate=16000, format="WAV")
             # Disable
@@ -150,6 +150,7 @@ class SpeechDetectionNode:
 
             # Message publishing
             manger_service(msg)
+            i += 1
             sleep(1)
             rospy.logdebug('Speech published with timestamps')
 
