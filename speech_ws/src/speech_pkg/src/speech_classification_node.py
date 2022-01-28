@@ -85,7 +85,7 @@ class Classifier:
         signal = self.convert(req.data.data)
         cmd, probs = self.predict_cmd(signal)
         assert len(cmd) == 1
-        cmd = cmd[0]
+        cmd = int(cmd[0])
         print("Predict:", cmd)
         print("cmd type:", type(cmd))
         print("Types:", cmd, probs)
