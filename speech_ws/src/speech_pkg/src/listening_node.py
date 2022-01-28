@@ -129,7 +129,7 @@ if __name__ == "__main__":
     CHANNELS = 1
     FRAMES_PER_BUFFER = 1024
     SR = 16000
-    exp_dir = r"/home/tesi_magistrale_ros/speech_ws/src/speech_pkg/experiments/2022-01-20_10-49-51"
+    exp_dir = r"/home/tesi_magistrale_ros/speech_ws/src/speech_pkg/experiments/2022-01-21_17-18-42"
     ckpt = "matchcboxnet--val_loss=0.34-epoch=231.model"
     model = Model.load_backup(ckpt, exp_dir)
     model = model.eval()
