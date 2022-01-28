@@ -4,7 +4,8 @@ import rospy
 from speech_pkg.srv import *
 
 def run(req):
-    cmd, probs = classify(req.data)
+    res = classify(req.data)
+    print(res)
     res = speech(cmd, probs)
     return ManagerResponse(res)
 
