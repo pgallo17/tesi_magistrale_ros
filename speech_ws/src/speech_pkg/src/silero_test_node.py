@@ -64,9 +64,9 @@ while True:
     speech, timestamps = speechRecognition.get_speech_frame()
     print("speech:", speech, timestamps)
     print("i:", i)
-    i += 1
     if speech is None:
         continue
+    i += 1
     speech_save = np.reshape(speech.copy(), (-1, 1))
     sf.write(f"/home/files/{i}.wav", data=speech_save, samplerate=demo_settings.io.speech.sample_rate, format="WAV")
 
