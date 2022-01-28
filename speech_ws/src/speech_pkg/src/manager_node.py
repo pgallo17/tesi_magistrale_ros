@@ -5,9 +5,9 @@ from speech_pkg.srv import *
 
 def run(req):
     res = classify(req.data)
-    print(res)
+    cmd, probs = res.cmd, res.probs
     res = speech(cmd, probs)
-    return ManagerResponse(res)
+    return ManagerResponse(res.flag)
 
 if __name__ == "__main__":
     rospy.init_node('manager')
