@@ -6,6 +6,7 @@ from speech_pkg.srv import *
 def run(req):
     res = classify(req.data)
     cmd, probs = res.cmd, res.probs
+    print(type(cmd), type(probs))
     res = speech(cmd, probs)
     return ManagerResponse(res.flag)
 
