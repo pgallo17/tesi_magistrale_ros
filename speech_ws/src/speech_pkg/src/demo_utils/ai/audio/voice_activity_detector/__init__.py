@@ -16,16 +16,6 @@ class VoiceActivityDetector:
     def __init__(self):
         pass
         
-    def is_speech(self, 
-                  buffer,
-                  model,
-                  threshold, 
-                  sampling_rate, 
-                  min_speech_duration_ms, 
-                  min_silence_duration_ms,
-                  window_size_samples,
-                  speech_pad_ms,
-                  return_seconds,
-                  visualize_probs):
+    def is_speech(self, buffer):
 
         raise NotImplementedError
