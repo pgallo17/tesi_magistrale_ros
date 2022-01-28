@@ -21,7 +21,7 @@ def init_dict():
 if __name__ == "__main__":
     init_dict()
     rospy.init_node('talker')
-    lang: str = pepper.speech.language.lower()
+    lang = pepper.speech.language.lower()
     commands_list = command_eng if lang == "eng" else command_ita
 
     # Connect to the robot
