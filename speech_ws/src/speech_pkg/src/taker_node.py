@@ -7,11 +7,13 @@ from settings import pepper
 from speech_pkg.srv import *
 
 def get_command_str(index):
+    if index == len(commands_list):
+        return None
     return commands_list[index]
 
 def callback(req):
     cmd_str = get_command_str(req.cmd)
-    print(cmd_str)
+    print(cmd_str) if cmd_str is not None else print("Reject")
     return TalkerResponse(True)
 
 if __name__ == "__main__":
