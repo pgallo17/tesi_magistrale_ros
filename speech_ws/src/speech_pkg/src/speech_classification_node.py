@@ -87,7 +87,6 @@ class Classifier:
         assert len(cmd) == 1
         cmd = int(cmd[0])
         probs = probs.tolist()[0]
-        print("Types:", cmd, probs)
         return ClassificationResponse(cmd, probs)
 
     def init_node(self):
