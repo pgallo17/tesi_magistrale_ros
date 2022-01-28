@@ -101,9 +101,10 @@ class Classifier:
             ckpt = r"matchcboxnet--val_loss=0.369-epoch=249.model"
             model = Model.load_backup(exp_dir=exp_dir, ckpt_name=ckpt)
         else:
-            exp_dir = r"/home/tesi_magistrale_ros/speech_ws/src/speech_pkg/experiments/2022-01-19_23-29-46"
-            ckpt = r"matchcboxnet--val_loss=0.369-epoch=249.model"
+            exp_dir = r"/home/tesi_magistrale_ros/speech_ws/src/speech_pkg/experiments/2022-01-20_10-49-51"
+            ckpt = r"matchcboxnet--val_loss=0.8493-epoch=249.model"
             model = Model.load_backup(exp_dir=exp_dir, ckpt_name=ckpt)
+        print("loaded model lang:", lang)
         return model
 
 if __name__ == "__main__":
