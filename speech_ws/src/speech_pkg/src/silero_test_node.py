@@ -57,14 +57,9 @@ class ROSMicrophoneSource(AudioSource):
 
         def read(self, chunk):
             audio = rospy.wait_for_message('mic_data', Int16MultiArray)
-            return np.array(audio.data, dtype='int16').tobytes()
+            return np.array(audio.data, dtype=np.int16).tobytes()
 
-silero = SileroVAD(
-            demo_settings.ai.audio.vad.model,
-            demo_settings.ai.audio.vad.threshold,
-            16000,
-            demo_settings.ai.audio.vad.device
-        )
+silero = MySileroVad(threshold=0.5, sampling_rate=16000)
 
 speechRecognition = SpeechRecognitionVAD(
             device_index = demo_settings.io.speech.device_index,
