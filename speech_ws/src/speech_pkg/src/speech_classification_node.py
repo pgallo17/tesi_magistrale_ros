@@ -100,7 +100,7 @@ class Classifier:
         rospy.spin()
 
     def load_model(self):
-        base_path = Path(global_utils.get_curr_dir(__file__)).parent.parent.joinpath("experiments")
+        base_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("experiments")
         if lang == "eng":
             exp_dir = base_path.joinpath("2022-01-19_23-29-46")
             ckpt = r"matchcboxnet--val_loss=0.369-epoch=249.model"
