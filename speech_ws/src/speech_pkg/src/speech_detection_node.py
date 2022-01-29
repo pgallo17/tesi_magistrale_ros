@@ -93,7 +93,7 @@ class SpeechDetectionNode:
         # Auxiliary VAD
         silero = MySileroVad(
             threshold=demo_settings.ai.audio.vad.threshold,
-            sampling_rate=demo_settings.sampling_rate
+            sampling_rate=demo_settings.ai.audio.vad.sampling_rate
         )
 
 
