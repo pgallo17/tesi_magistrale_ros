@@ -9,6 +9,7 @@ from demo_utils.ai.audio.voice_activity_detector.silero_vad import SileroVAD
 from settings import demo_settings
 from speech_recognition import AudioSource
 from speech_pkg.srv import *
+from utils import MySileroVad
 from pathlib import Path
 import soundfile as sf
 
@@ -90,11 +91,9 @@ class SpeechDetectionNode:
         self.respeaker = ReSpeakerMicArrayV2()
 
         # Auxiliary VAD
-        silero = SileroVAD(
-            demo_settings.ai.audio.vad.model,
-            demo_settings.ai.audio.vad.threshold,
-            demo_settings.ai.audio.vad.sampling_rate, 
-            demo_settings.ai.audio.vad.device
+        silero = MySileroVad(
+            threshold=demo_settings.ai.audio.vad.threshold,
+            sampling_rate=demo_settings.sampling_rate
         )
 
 
@@ -112,7 +111,7 @@ class SpeechDetectionNode:
                 demo_settings.io.speech.sample_rate,
                 demo_settings.io.speech.chunk_size
             ),
-            vad=None
+            vad=silero
         )
         print("vad loaded")
         # Events broker subscription

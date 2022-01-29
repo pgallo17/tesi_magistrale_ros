@@ -59,6 +59,7 @@ class ROSMicrophoneSource(AudioSource):
             audio = rospy.wait_for_message('mic_data', Int16MultiArray)
             return np.array(audio.data, dtype=np.int16).tobytes()
 
+
 silero = MySileroVad(threshold=0.5, sampling_rate=16000)
 
 speechRecognition = SpeechRecognitionVAD(
