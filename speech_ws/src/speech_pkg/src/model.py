@@ -97,7 +97,10 @@ class Model(EncDecClassificationModel):
     @classmethod
     def load_backup(cls, ckpt_name, exp_dir):
         ckpt_path = Path(exp_dir).joinpath("checkpoints_backup", ckpt_name)
-        checkpoint = torch.load(ckpt_path)
+        try:
+            checkpoint = torch.load(ckpt_path)
+        except RuntimeError:
+            checkpoint = torch.load(ckpt_path, map_location=torch.device("cpu"))
         state_dict = checkpoint["state_dict"]
         class_weight = state_dict["loss.weight"] if "loss.weight" in state_dict.keys() else None
         # del state_dict["loss.weight"]
