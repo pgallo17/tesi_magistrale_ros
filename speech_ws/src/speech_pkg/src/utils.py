@@ -5,7 +5,7 @@ import torch
 class MySileroVad(VoiceActivityDetector):
     def __init__(self, threshold, sampling_rate):
         self.threshold = threshold
-        self.sampling_rate = int(sampling_rate)
+        self.sampling_rate = sampling_rate
         model, utils = torch.hub.load(repo_or_dir='snakers4/silero-vad',
                                       model='silero_vad',
                                       force_reload=True)
