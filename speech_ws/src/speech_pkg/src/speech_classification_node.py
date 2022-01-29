@@ -53,7 +53,10 @@ class Classifier:
     def __init__(self):
         self.model = self.load_model()
         self.model = self.model.eval()
-        self.model = self.model.cuda()
+        if torch.cuda.is_available():
+            self.model = self.model.cuda()
+        else:
+            self.model = self.model.cpu()
         self.init_node()
 
     def _pcm2float(self, sound: np.ndarray):
