@@ -6,9 +6,10 @@ from nemo.core.neural_types import NeuralType, AudioSignal, LengthsType
 from nemo.core.classes import IterableDataset
 from torch.utils.data import DataLoader
 from speech_pkg.srv import Classification, ClassificationResponse
-from settings import pepper
+from settings import pepper, global_utils
 import torch
 import rospy
+from pathlib import Path
 
 def infer_signal(model, signal):
     data_layer.set_signal(signal)
@@ -99,12 +100,13 @@ class Classifier:
         rospy.spin()
 
     def load_model(self):
+        base_path = Path(global_utils.get_curr_dir(__file__)).parent.parent.joinpath("experiments")
         if lang == "eng":
-            exp_dir = r"/home/tesi_magistrale_ros/speech_ws/src/speech_pkg/experiments/2022-01-19_23-29-46"
+            exp_dir = base_path.joinpath("2022-01-19_23-29-46")
             ckpt = r"matchcboxnet--val_loss=0.369-epoch=249.model"
             model = Model.load_backup(exp_dir=exp_dir, ckpt_name=ckpt)
         else:
-            exp_dir = r"/home/tesi_magistrale_ros/speech_ws/src/speech_pkg/experiments/2022-01-21_17-18-42"
+            exp_dir = base_path.joinpath("2022-01-21_17-18-42")
             ckpt = r"matchcboxnet--val_loss=0.4191-epoch=249.model"
             model = Model.load_backup(exp_dir=exp_dir, ckpt_name=ckpt)
         print("loaded model lang:", lang)
