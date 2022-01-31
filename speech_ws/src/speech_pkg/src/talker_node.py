@@ -25,7 +25,7 @@ def init_dict():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--lang", required=True, dest="lang")
+    parser.add_argument("--lang", required=True, dest="lang", type=str)
     args = parser.parse_args()
     if args.lang not in AVAILABLE_LANGS:
         raise Exception("Selected lang not available.\nAvailable langs:", AVAILABLE_LANGS)
