@@ -11,7 +11,7 @@ import torch
 import rospy
 from pathlib import Path
 import argparse
-from settings.lang_settings import AVAILABLE_LANGS
+from lang_settings import AVAILABLE_LANGS
 
 def infer_signal(model, signal):
     data_layer.set_signal(signal)

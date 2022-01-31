@@ -5,7 +5,7 @@ import rospy
 from commands import command_eng, command_ita
 from speech_pkg.srv import *
 import argparse
-from settings.lang_settings import AVAILABLE_LANGS
+from lang_settings import AVAILABLE_LANGS
 
 def get_command_str(index):
     return commands_list[index]
