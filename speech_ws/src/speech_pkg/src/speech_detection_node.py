@@ -151,7 +151,6 @@ class SpeechDetectionNode:
             manger_service(msg)
             i += 1
             rospy.logdebug('Speech published with timestamps')
-            print("Talk")
 
 if __name__ == '__main__':
     rospy.loginfo("Waiting manager service")
