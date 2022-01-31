@@ -12,6 +12,7 @@ from speech_pkg.srv import *
 from utils import MySileroVad
 from pathlib import Path
 import soundfile as sf
+import torch
 
 import numpy as np
 from time import sleep
@@ -129,6 +130,7 @@ class SpeechDetectionNode:
 
             # Get speech data
             speech, timestamps = self.speechRecognition.get_speech_frame()
+            speech = torch.nn.functional.pad(speech, (100, 100))
             print("speech:", speech, timestamps)
             print("i:", i)
 
@@ -139,7 +141,6 @@ class SpeechDetectionNode:
             # Disable
             self.enabled = False
             event_pub.publish("VAD/Disabled")
-            
             # Message preparing
             msg = SpeechData()
             msg.data = speech.tolist()
