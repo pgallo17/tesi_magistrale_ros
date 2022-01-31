@@ -130,8 +130,6 @@ class SpeechDetectionNode:
 
             # Get speech data
             speech, timestamps = self.speechRecognition.get_speech_frame()
-            if speech is not None:
-                speech =np.pad(speech, (100, 100))
             print("speech:", speech, timestamps)
             print("i:", i)
 
