@@ -4,6 +4,8 @@ import rospy
 # import qi
 from commands import command_eng, command_ita
 from speech_pkg.srv import *
+import argparse
+from utils import AVAILABLE_LANGS
 
 def get_command_str(index):
     return commands_list[index]
@@ -22,10 +24,14 @@ def init_dict():
     command_ita[len(command_ita)] = "Non ho capito"
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--lang", required=True, dest="lang")
+    args = parser.parse_args()
+    if args.lang not in AVAILABLE_LANGS:
+        raise Exception("Selected lang not available.\nAvailable langs:", AVAILABLE_LANGS)
     init_dict()
     rospy.init_node('talker')
-    lang = "ita"
-    commands_list = command_eng if lang == "eng" else command_ita
+    commands_list = command_eng if args.lang == "eng" else command_ita
 
     # Connect to the robot
     print("Connecting to robot...")

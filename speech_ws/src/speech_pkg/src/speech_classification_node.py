@@ -10,6 +10,8 @@ from settings import pepper, global_utils
 import torch
 import rospy
 from pathlib import Path
+import argparse
+from utils import AVAILABLE_LANGS
 
 def infer_signal(model, signal):
     data_layer.set_signal(signal)
@@ -51,8 +53,8 @@ class AudioDataLayer(IterableDataset):
         return 1
 
 class Classifier:
-    def __init__(self):
-        self.model = self.load_model()
+    def __init__(self, lang):
+        self.model = self.load_model(lang)
         self.model = self.model.eval()
         if torch.cuda.is_available():
             self.model = self.model.cuda()
@@ -99,7 +101,7 @@ class Classifier:
         s = rospy.Service('classifier_service', Classification, self.parse_req)
         rospy.spin()
 
-    def load_model(self):
+    def load_model(self, lang):
         base_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("experiments")
         if lang == "eng":
             exp_dir = base_path.joinpath("2022-01-25_15-42-23")
@@ -114,8 +116,11 @@ class Classifier:
         return model
 
 if __name__ == "__main__":
-
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--lang", required=True, dest="lang")
+    args = parser.parse_args()
+    if args.lang not in AVAILABLE_LANGS:
+        raise Exception("Selected lang not available.\nAvailable langs:", AVAILABLE_LANGS)
     data_layer = AudioDataLayer(sample_rate=16000)
     data_loader = DataLoader(data_layer, batch_size=1, collate_fn=data_layer.collate_fn)
-    lang =  "eng" if pepper.speech.language.lower() == "english" else "ita"
-    classifier = Classifier()
+    classifier = Classifier(args.lang)

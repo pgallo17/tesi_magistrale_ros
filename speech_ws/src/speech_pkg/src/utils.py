@@ -2,6 +2,8 @@ import numpy as np
 from demo_utils.ai.audio.voice_activity_detector import VoiceActivityDetector
 import torch
 
+AVAILABLE_LANGS = ["eng", "ita"]
+
 class MySileroVad(VoiceActivityDetector):
     def __init__(self, threshold, sampling_rate):
         self.threshold = threshold
