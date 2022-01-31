@@ -6,6 +6,7 @@ from commands import command_eng, command_ita
 from speech_pkg.srv import *
 import argparse
 from lang_settings import AVAILABLE_LANGS
+import sys
 
 def get_command_str(index):
     return commands_list[index]
@@ -26,7 +27,7 @@ def init_dict():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--lang", required=True, dest="lang", type=str)
-    args = parser.parse_args()
+    args, unknown = parser.parse_known_args(args=rospy.myargv(argv=sys.argv)[1:])
     if args.lang not in AVAILABLE_LANGS:
         raise Exception("Selected lang not available.\nAvailable langs:", AVAILABLE_LANGS)
     init_dict()

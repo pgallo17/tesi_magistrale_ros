@@ -9,6 +9,7 @@ from speech_pkg.srv import Classification, ClassificationResponse
 from settings import pepper, global_utils
 import torch
 import rospy
+import sys
 from pathlib import Path
 import argparse
 from lang_settings import AVAILABLE_LANGS
@@ -118,7 +119,7 @@ class Classifier:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--lang", required=True, dest="lang", type=str)
-    args = parser.parse_args()
+    args, unknown = parser.parse_known_args(args=rospy.myargv(argv=sys.argv)[1:])
     if args.lang not in AVAILABLE_LANGS:
         raise Exception("Selected lang not available.\nAvailable langs:", AVAILABLE_LANGS)
     data_layer = AudioDataLayer(sample_rate=16000)
