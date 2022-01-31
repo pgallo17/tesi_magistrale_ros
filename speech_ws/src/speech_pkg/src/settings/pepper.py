@@ -6,7 +6,7 @@ pepper.ip = "10.0.1.214"
 pepper.port = 9559
 
 ############## PEPPER SPEECH ##############
-pepper.speech.language = "Italian"
+pepper.speech.language = "English"
 pepper.speech.animated = True
 pepper.speech.rspd = 88
 pepper.speech.comma_pause = 150
