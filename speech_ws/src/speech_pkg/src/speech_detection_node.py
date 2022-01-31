@@ -131,7 +131,7 @@ class SpeechDetectionNode:
             # Get speech data
             speech, timestamps = self.speechRecognition.get_speech_frame()
             if speech is not None:
-                speech = torch.nn.functional.pad(speech, (100, 100))
+                speech =np.pad(speech, (100, 100))
             print("speech:", speech, timestamps)
             print("i:", i)
 
