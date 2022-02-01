@@ -45,11 +45,11 @@ def get_bests(probs):
 
 def create_string(bests, reject_prob):
     out_str = ""
-    out_str += text_controller.get_lang_string(0) + " " + str(bests[0][0]) + '\n'
+    out_str += text_controller.get_lang_string(0) + " " + commands_list(bests[0][0]) + '\n'
     out_str += text_controller.get_lang_string(1) + " " + str(reject_prob) + '\n'
     out_str += text_controller.get_lang_string(2) + "\n"
     for cmd, prob in bests:
-        out_str += "%s %s" % (str(cmd), str(prob))
+        out_str += "%s %s" % (commands_list(cmd), str(prob))
     return out_str
 
 def callback(req):
@@ -61,6 +61,7 @@ def callback(req):
         fil.write("*" * 30)
         fil.write("\n")
     print(out_str)
+    print(commands_list[req.cmd])
     # tts.say(out_str)
     return TalkerResponse(True)
 
