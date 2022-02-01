@@ -1,4 +1,4 @@
-int8 cmd
+int8[] cmds
 float32[] probs
 ---
 bool flag

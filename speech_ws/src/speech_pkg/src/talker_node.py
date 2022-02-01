@@ -31,9 +31,9 @@ class TextController:
 def get_command_str(index):
     return commands_list[index]
 
-def get_bests(cmd, probs):
+def get_bests(cmds, probs):
     assert len(command_eng) == len(command_ita)
-    values_dict = dict(zip(cmd, probs))
+    values_dict = dict(zip(cmds, probs))
     reject_key = len(command_eng)-1
     reject_prob = values_dict[reject_key]
     del values_dict[reject_key]
@@ -52,7 +52,7 @@ def create_string(bests, reject_prob):
     return out_str
 
 def callback(req):
-    bests, reject_prob = get_bests(req.cmd, req.probs)
+    bests, reject_prob = get_bests(req.cmds, req.probs)
     out_str = create_string(bests, reject_prob)
     with open("/home/files/res.txt", "a") as fil:
         fil.write("*"*30)
