@@ -39,9 +39,9 @@ def get_bests(probs):
     reject_prob = values_dict[reject_key]
     del values_dict[reject_key]
     values_list = list(values_dict.items())
-    print(values_list)
     values_list.sort(key=lambda x: x[1])
     bests = values_list[:N_BEST_VALUES]
+    print(bests)
     return bests, reject_prob
 
 def create_string(bests, reject_prob):
