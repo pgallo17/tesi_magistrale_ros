@@ -39,6 +39,7 @@ def get_bests(probs):
     reject_prob = values_dict[reject_key]
     del values_dict[reject_key]
     values_list = list(values_dict.items())
+    print(values_list)
     values_list.sort(key=lambda x: x[1])
     bests = values_list[:N_BEST_VALUES]
     return bests, reject_prob
@@ -49,7 +50,7 @@ def create_string(bests, reject_prob):
     out_str += text_controller.get_lang_string(1) + " " + str(reject_prob) + '\n'
     out_str += text_controller.get_lang_string(2) + "\n"
     for cmd, prob in bests:
-        out_str += "%s %s" % (get_command_str(cmd), str(prob))
+        out_str += "%s %s\n" % (str(prob), get_command_str(cmd))
     return out_str
 
 def callback(req):
