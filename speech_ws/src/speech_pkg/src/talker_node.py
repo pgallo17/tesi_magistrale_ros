@@ -43,9 +43,9 @@ def get_bests(probs):
     bests = values_list[:N_BEST_VALUES]
     return bests, reject_prob
 
-def create_string(bests, reject_prob):
+def create_string(cmd, bests, reject_prob):
     out_str = ""
-    out_str += text_controller.get_lang_string(0) + " " + get_command_str(bests[0][0]) + '\n'
+    out_str += text_controller.get_lang_string(0) + " " + get_command_str(cmd) + '\n'
     out_str += text_controller.get_lang_string(1) + " " + str(reject_prob) + '\n'
     out_str += text_controller.get_lang_string(2) + "\n"
     for cmd, prob in bests:
@@ -54,14 +54,14 @@ def create_string(bests, reject_prob):
 
 def callback(req):
     bests, reject_prob = get_bests(req.probs)
-    out_str = create_string(bests, reject_prob)
+    out_str = create_string(req.cmd, bests, reject_prob)
     with open("/home/files/res.txt", "a") as fil:
         fil.write("*"*30)
         fil.write(out_str)
         fil.write("*" * 30)
         fil.write("\n")
     print(out_str)
-    print(get_command_str(req.cmd))
+    # print(get_command_str(req.cmd))
     # tts.say(out_str)
     return TalkerResponse(True)
 
