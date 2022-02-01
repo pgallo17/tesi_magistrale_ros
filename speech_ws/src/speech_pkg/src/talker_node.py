@@ -41,7 +41,7 @@ def get_bests(probs):
     values_list = list(values_dict.items())
     values_list.sort(key=lambda x: x[1], reverse=True)
     bests = values_list[:N_BEST_VALUES]
-    bests = list(map(lambda x: round(x[1], 3), bests))
+    bests = list(map(lambda x: (x[0], round(x[1], 3)), bests))
     return bests, reject_prob
 
 def create_string(cmd, bests, reject_prob):
