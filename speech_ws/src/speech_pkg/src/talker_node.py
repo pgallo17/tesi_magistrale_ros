@@ -48,7 +48,7 @@ def create_string(bests, reject_prob):
     out_str += text_controller.get_lang_string(1) + " " + str(reject_prob) + '\n'
     out_str += text_controller.get_lang_string(2) + "\n"
     for cmd, prob in bests:
-        out_str += f"{prob}\t{cmd}\n"
+        out_str += "%s %s" % (str(cmd), str(prob))
     return out_str
 
 def callback(req):
