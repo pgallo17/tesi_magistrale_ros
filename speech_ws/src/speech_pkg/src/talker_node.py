@@ -39,7 +39,7 @@ def get_bests(probs):
     reject_prob = values_dict[reject_key]
     del values_dict[reject_key]
     values_list = list(values_dict.items())
-    values_list.sort(key=lambda x: x[1])
+    values_list.sort(key=lambda x: x[1], reverse=True)
     bests = values_list[:N_BEST_VALUES]
     print(bests)
     return bests, reject_prob
