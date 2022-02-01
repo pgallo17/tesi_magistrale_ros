@@ -36,11 +36,12 @@ def get_bests(probs):
     cmds = list(range(len(probs)))
     values_dict = dict(zip(cmds, probs))
     reject_key = len(command_eng)-1
-    reject_prob = values_dict[reject_key]
+    reject_prob = round(values_dict[reject_key], 3)
     del values_dict[reject_key]
     values_list = list(values_dict.items())
     values_list.sort(key=lambda x: x[1], reverse=True)
     bests = values_list[:N_BEST_VALUES]
+    bests = list(map(lambda x: round(x, 3), bests))
     return bests, reject_prob
 
 def create_string(cmd, bests, reject_prob):
