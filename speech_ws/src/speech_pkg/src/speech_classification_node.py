@@ -108,8 +108,8 @@ class Classifier:
             exp_dir = base_path.joinpath("2022-01-19_23-29-46")
             ckpt = r"matchcboxnet--val_loss=0.369-epoch=249.model"
         else:
-            exp_dir = base_path.joinpath("2022-01-20_10-49-48")
-            ckpt = r"matchcboxnet--val_loss=0.427-epoch=248.model"
+            exp_dir = base_path.joinpath("2022-01-31_17-32-48")
+            ckpt = r"matchcboxnet--val_loss=0.3033-epoch=220.model"
         model = Model.load_backup(exp_dir=exp_dir, ckpt_name=ckpt)
         print("loaded model lang:", lang)
         print("model loaded:", exp_dir)
