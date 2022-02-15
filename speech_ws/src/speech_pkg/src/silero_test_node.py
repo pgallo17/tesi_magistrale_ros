@@ -82,6 +82,7 @@ speechRecognition.calibrate()
 
 i = 0
 while True:
+    print("Start")
     speech, timestamps = speechRecognition.get_speech_frame()
     print("speech:", speech, timestamps)
     print("i:", i)
