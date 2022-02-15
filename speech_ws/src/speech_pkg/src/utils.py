@@ -10,7 +10,7 @@ class MySileroVad(VoiceActivityDetector):
         model, utils = torch.hub.load(repo_or_dir='snakers4/silero-vad',
                                       model='silero_vad',
                                       force_reload=True)
-        # model = model.cuda()
+        model = model.cuda()
         self.model = model
 
     def int2float(self, sound):
