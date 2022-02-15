@@ -7,6 +7,7 @@ from speech_pkg.srv import *
 import argparse
 from lang_settings import AVAILABLE_LANGS
 import sys
+import time
 
 ENG = {
     0: "Command predicted:",
@@ -96,6 +97,7 @@ def say(out_str):
         tts = session.service("ALTextToSpeech")
         tts.setLanguage("Italian" if args.lang == "ita" else "English")
         tts.say(out_str)
+    time.sleep(0.5)
 
 if __name__ == "__main__":
     N_BEST_VALUES = 3
