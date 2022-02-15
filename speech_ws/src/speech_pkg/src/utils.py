@@ -23,7 +23,7 @@ class MySileroVad(VoiceActivityDetector):
 
     def is_speech(self, buffer):
         audio_int16 = np.frombuffer(buffer, dtype=np.int16)
-
+        print(audio_int16.shape)
         sf.write(f"/home/files/before.wav", data=audio_int16, samplerate=16000, format="WAV")
 
         audio_float32 = self.int2float(audio_int16.copy())
