@@ -89,6 +89,10 @@ def say(out_str):
     except Exception:
         session = qi.Session()
         session.connect('tcp://10.0.1.230:9559')
+
+        motion_service = session.service("ALMotion")
+        motion_service.wakeUp()
+        
         tts = session.service("ALTextToSpeech")
         tts.setLanguage("Italian" if args.lang == "ita" else "English")
         tts.say(out_str)
