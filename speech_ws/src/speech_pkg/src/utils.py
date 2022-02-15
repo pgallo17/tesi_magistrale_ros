@@ -10,7 +10,7 @@ class MySileroVad(VoiceActivityDetector):
         model, utils = torch.hub.load(repo_or_dir='snakers4/silero-vad',
                                       model='silero_vad',
                                       force_reload=True)
-        model = model.cuda()
+        # model = model.cuda()
         self.model = model
 
     def int2float(self, sound):
@@ -32,5 +32,5 @@ class MySileroVad(VoiceActivityDetector):
         speech_save = np.reshape(audio_int16.copy(), (-1, 1))
         sf.write(f"/home/files/after.wav", data=speech_save, samplerate=16000, format="WAV")
 
-        new_confidence = self.model(torch.from_numpy(audio_float32).to('cuda'), self.sampling_rate).item()
+        new_confidence = self.model(torch.from_numpy(audio_float32), self.sampling_rate).item()
         return True if new_confidence > self.threshold else False
