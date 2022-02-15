@@ -89,7 +89,7 @@ class SpeechDetectionNode:
         rospy.init_node('speech_detection_node')
 
         # ReSpeaker interface initialization
-        # self.respeaker = ReSpeakerMicArrayV2()
+        self.respeaker = ReSpeakerMicArrayV2()
 
         # Auxiliary VAD
         silero = MySileroVad(
@@ -141,7 +141,7 @@ class SpeechDetectionNode:
             # Message preparing
             msg = SpeechData()
             msg.data = speech.tolist()
-            msg.doa = 0 #self.respeaker.get_doa() - 90
+            msg.doa = self.respeaker.get_doa() - 90
             msg.start_time = timestamps[0]
             msg.end_time = timestamps[1]
 
