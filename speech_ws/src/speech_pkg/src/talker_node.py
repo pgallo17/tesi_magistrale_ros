@@ -73,7 +73,7 @@ def connect_robot():
     # Connect to the robot
     print("Connecting to robot...")
     session = qi.Session()
-    session.connect('tcp://10.0.1.214:9559')  # Robot IP
+    session.connect('tcp://10.0.1.230:9559')  # Robot IP
     print("Robot connected")
 
     #TextToSpeech service
