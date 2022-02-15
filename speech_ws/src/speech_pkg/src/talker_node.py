@@ -77,6 +77,9 @@ def connect_robot():
     session.connect('tcp://10.0.1.230:9559')  # Robot IP
     print("Robot connected")
 
+    motion_service = session.service("ALMotion")
+    motion_service.wakeUp()
+
     #TextToSpeech service
     tts = session.service("ALTextToSpeech")
     tts.setLanguage("Italian" if args.lang == "ita" else "English")
@@ -90,9 +93,6 @@ def say(out_str):
         session = qi.Session()
         session.connect('tcp://10.0.1.230:9559')
 
-        motion_service = session.service("ALMotion")
-        motion_service.wakeUp()
-        
         tts = session.service("ALTextToSpeech")
         tts.setLanguage("Italian" if args.lang == "ita" else "English")
         tts.say(out_str)
