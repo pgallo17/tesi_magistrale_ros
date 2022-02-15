@@ -84,7 +84,14 @@ def connect_robot():
     return tts
 
 def say(out_str):
-    tts.say(out_str)
+    try:
+        tts.say(out_str)
+    except Exception:
+        session = qi.Session()
+        session.connect('tcp://10.0.1.230:9559')
+        tts = session.service("ALTextToSpeech")
+        tts.setLanguage("Italian" if args.lang == "ita" else "English")
+        tts.say(out_str)
 
 if __name__ == "__main__":
     N_BEST_VALUES = 3
