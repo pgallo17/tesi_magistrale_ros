@@ -97,7 +97,7 @@ def say(out_str):
         tts = session.service("ALTextToSpeech")
         tts.setLanguage("Italian" if args.lang == "ita" else "English")
         tts.say(out_str)
-    time.sleep(0.5)
+    # time.sleep(0.5)
 
 if __name__ == "__main__":
     N_BEST_VALUES = 3
