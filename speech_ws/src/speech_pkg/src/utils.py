@@ -10,7 +10,7 @@ class MySileroVad(VoiceActivityDetector):
         model, utils = torch.hub.load(repo_or_dir='snakers4/silero-vad',
                                       model='silero_vad',
                                       force_reload=True)
-        # model = model.cuda()
+        model = model.cuda()
         self.model = model
 
     def int2float(self, sound):
@@ -24,5 +24,6 @@ class MySileroVad(VoiceActivityDetector):
     def is_speech(self, buffer):
         audio_int16 = np.frombuffer(buffer, dtype=np.int16)
         audio_float32 = self.int2float(audio_int16.copy())
-        new_confidence = self.model(torch.from_numpy(audio_float32), self.sampling_rate).item()
+        audio32_torch = torch.from_numpy(audio_float32).cuda()
+        new_confidence = self.model(audio32_torch, self.sampling_rate).item()
         return True if new_confidence > self.threshold else False
