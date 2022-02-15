@@ -69,7 +69,7 @@ def callback(req):
 
 def init_dict():
     command_eng[len(command_eng)] = "I do not understand"
-    command_ita[len(command_ita)] = "Non ho capito"
+    command_ita[len(command_ita)] = "Comando non supportato"
 
 def connect_robot():
     # Connect to the robot
