@@ -148,8 +148,8 @@ class SpeechDetectionNode:
             # Message publishing
             manger_service(msg)
 
-            # speech_save = np.reshape(speech.copy(), (-1, 1))
-            # sf.write(f"/home/files/{i}.wav", data=speech_save, samplerate=demo_settings.io.speech.sample_rate, format="WAV")
+            speech_save = np.reshape(speech.copy(), (-1, 1))
+            sf.write(f"/home/files/{i}.wav", data=speech_save, samplerate=demo_settings.io.speech.sample_rate, format="WAV")
             i += 1
             
             rospy.logdebug('Speech published with timestamps')
