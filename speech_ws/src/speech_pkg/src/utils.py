@@ -23,12 +23,6 @@ class MySileroVad(VoiceActivityDetector):
 
     def is_speech(self, buffer):
         audio_int16 = np.frombuffer(buffer, dtype=np.int16)
-        print(audio_int16.shape)
-        sf.write(f"/home/files/before.wav", data=audio_int16, samplerate=16000, format="WAV")
-
         audio_float32 = self.int2float(audio_int16.copy())
-
-        sf.write(f"/home/files/after.wav", data=audio_float32, samplerate=16000, format="WAV")
-
         new_confidence = self.model(torch.from_numpy(audio_float32), self.sampling_rate).item()
         return True if new_confidence > self.threshold else False
