@@ -80,6 +80,7 @@ def connect_robot():
     #TextToSpeech service
     tts = session.service("ALTextToSpeech")
     tts.setLanguage("Italian" if args.lang == "ita" else "English")
+    say("Hello world")
     return tts
 
 def say(out_str):
