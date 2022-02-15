@@ -21,7 +21,7 @@ io.mic.format = 'int16'
 
 #################### SPEECH ####################
 
-io.speech.device_index=0  # ReSpeaker 4 Mic Array (UAC1.0): USB Audio (hw:2,0)
+io.speech.device_index=24  # ReSpeaker 4 Mic Array (UAC1.0): USB Audio (hw:2,0)
 io.speech.sample_rate = 16000
 io.speech.chunk_size = 960
 io.speech.timeout = 10 # seconds
