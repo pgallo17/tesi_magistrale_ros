@@ -2,14 +2,14 @@ import numpy as np
 from demo_utils.ai.audio.voice_activity_detector import VoiceActivityDetector
 import torch
 import soundfile as sf
-import nemo
-import nemo.collections.asr as nemo_asr
 
 class MySileroVad(VoiceActivityDetector):
     def __init__(self, threshold, sampling_rate):
         self.threshold = threshold
         self.sampling_rate = sampling_rate
-        model = nemo_asr.models.EncDecClassificationModel.from_pretrained(model_name="MarbleNet-3x2x64")
+        model, utils = torch.hub.load(repo_or_dir='snakers4/silero-vad',
+                                      model='silero_vad',
+                                      force_reload=True)
         model = model.cuda()
         self.model = model
 
