@@ -94,11 +94,11 @@ if __name__ == "__main__":
     if args.lang not in AVAILABLE_LANGS:
         raise Exception("Selected lang not available.\nAvailable langs:", AVAILABLE_LANGS)
     init_dict()
+    tts = connect_robot()
     text_controller = TextController(args.lang)
     rospy.init_node('talker')
     commands_list = command_eng if args.lang == "eng" else command_ita
 
-    tts = connect_robot()
 
     rospy.Service('speech_service', Talker, callback)
 
