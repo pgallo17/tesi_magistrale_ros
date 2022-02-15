@@ -63,12 +63,26 @@ def callback(req):
         fil.write("\n")
     print(out_str)
     # print(get_command_str(req.cmd))
-    # tts.say(out_str)
     return TalkerResponse(True)
 
 def init_dict():
     command_eng[len(command_eng)] = "I do not understand"
     command_ita[len(command_ita)] = "Non ho capito"
+
+def connect_robot():
+    # Connect to the robot
+    print("Connecting to robot...")
+    session = qi.Session()
+    session.connect('tcp://10.0.1.214:9559')  # Robot IP
+    print("Robot connected")
+
+    #TextToSpeech service
+    tts = session.service("ALTextToSpeech")
+    tts.setLanguage("Italian" if args.lang == "ita" else "English")
+    return tts
+
+def say(out_str):
+    tts.say(out_str)
 
 if __name__ == "__main__":
     N_BEST_VALUES = 3
@@ -82,15 +96,7 @@ if __name__ == "__main__":
     rospy.init_node('talker')
     commands_list = command_eng if args.lang == "eng" else command_ita
 
-    # Connect to the robot
-    print("Connecting to robot...")
-    # session = qi.Session()
-    # session.connect('tcp://10.0.1.214:9559')  # Robot IP
-    print("Robot connected")
-
-    # TextToSpeech service
-    # tts = session.service("ALTextToSpeech")
-    # tts.setLanguage("Italian" if lang == "ita" else "English")
+    tts = connect_robot()
 
     rospy.Service('speech_service', Talker, callback)
 
