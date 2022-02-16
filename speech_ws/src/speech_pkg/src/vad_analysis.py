@@ -20,5 +20,5 @@ if __name__ == "__main__":
             end_time = time.time()
             latency.append(end_time-start_time)
         mean_value = np.array(latency).mean()
-        print("Chunk:", ch, "\tlantency:", mean_value)
+        print("Chunk:", ch, "\tlatency:", mean_value)
 
