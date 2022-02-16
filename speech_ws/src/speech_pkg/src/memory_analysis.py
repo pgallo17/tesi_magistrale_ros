@@ -17,8 +17,7 @@ def infer_signal(model, signal):
     batch = next(iter(data_loader))
     audio_signal, audio_signal_len = batch
     audio_signal, audio_signal_len = audio_signal.to(model.device), audio_signal_len.to(model.device)
-    with record_function("model_inference"):
-        logits = model(input_signal=audio_signal, input_signal_length=audio_signal_len)
+    logits = model(input_signal=audio_signal, input_signal_length=audio_signal_len)
     print(logits)
     return logits
 
@@ -108,9 +107,7 @@ if __name__ == "__main__":
     sr = 16000
     duration = 2 #seconds
     num_samples = sr * duration
-    prof = profile(activities=[ProfilerActivity.CPU], record_shapes=True)
     audio = np.random.rand(num_samples)
     data_layer = AudioDataLayer(sample_rate=16000)
     data_loader = DataLoader(data_layer, batch_size=1, collate_fn=data_layer.collate_fn)
     classifier.predict_cmd(audio)
-    print(prof.key_averages().table(sort_by="cpu_time_total", row_limit=10))
