@@ -14,11 +14,11 @@ if __name__ == "__main__":
         split = len(audio_data) // ch
         audio_data_split = np.array_split(audio_data, split)
         for i in range(200):
-            start_time = time.time()
             for e in audio_data_split:
+                start_time = time.time()
                 silero.is_speech(e.tobytes())
-            end_time = time.time()
-            latency.append(end_time-start_time)
+                end_time = time.time()
+                latency.append(end_time-start_time)
         mean_value = np.array(latency).mean()
         print("Chunk:", ch, "\tlatency:", mean_value)
 
