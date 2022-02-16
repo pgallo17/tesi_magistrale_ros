@@ -92,9 +92,11 @@ class SpeechDetectionNode:
         self.respeaker = ReSpeakerMicArrayV2()
 
         # Auxiliary VAD
-        silero = MySileroVad(
-            threshold=demo_settings.ai.audio.vad.threshold,
-            sampling_rate=demo_settings.ai.audio.vad.sampling_rate
+        silero = SileroVAD(
+            demo_settings.ai.audio.vad.model,
+            demo_settings.ai.audio.vad.threshold,
+            demo_settings.ai.audio.vad.sampling_rate,
+            demo_settings.ai.audio.vad.device
         )
 
 
@@ -125,19 +127,24 @@ class SpeechDetectionNode:
         # Loop
         print("before loop")
         i = 0
-        self.enabled = True
+        self.enabled = False
         while not rospy.is_shutdown():
+
+            if not self.enabled:
+                sleep(.1)
+
+                continue
 
             # Get speech data
             speech, timestamps = self.speechRecognition.get_speech_frame()
-            # print("speech:", speech, timestamps)
-            # print("i:", i)
 
             if speech is None:
                 continue
+
             # Disable
             self.enabled = False
             event_pub.publish("VAD/Disabled")
+
             # Message preparing
             msg = SpeechData()
             msg.data = speech.tolist()
@@ -146,12 +153,11 @@ class SpeechDetectionNode:
             msg.end_time = timestamps[1]
 
             # Message publishing
-            manger_service(msg)
-
+            pub.publish(msg)
             speech_save = np.reshape(speech.copy(), (-1, 1))
-            sf.write(f"/home/files/{i}.wav", data=speech_save, samplerate=demo_settings.io.speech.sample_rate, format="WAV")
+            sf.write(f"/home/files/{i}.wav", data=speech_save, samplerate=demo_settings.io.speech.sample_rate,format="WAV")
             i += 1
-            
+
             rospy.logdebug('Speech published with timestamps')
 
 if __name__ == '__main__':
