@@ -1,7 +1,7 @@
 from utils import MySileroVad
 import librosa
 import numpy as np
-from datetime import datetime
+import time
 
 if __name__ == "__main__":
     th = 0.5
@@ -14,10 +14,10 @@ if __name__ == "__main__":
         split = len(audio_data) // ch
         audio_data_split = np.array_split(audio_data, split)
         for i in range(200):
-            start_time = datetime.now()
+            start_time = time.time()
             for e in audio_data_split:
                 silero.is_speech(e.tobytes())
-            end_time = datetime.now()
+            end_time = time.time()
             latency.append(end_time-start_time)
         mean_value = np.array(latency).mean()
         print("Chunk:", ch, "lantency:", mean_value)
