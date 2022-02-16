@@ -153,7 +153,8 @@ class SpeechDetectionNode:
             msg.end_time = timestamps[1]
 
             # Message publishing
-            pub.publish(msg)
+            manger_service(msg)
+            # pub.publish(msg)
             speech_save = np.reshape(speech.copy(), (-1, 1))
             sf.write(f"/home/files/{i}.wav", data=speech_save, samplerate=demo_settings.io.speech.sample_rate,format="WAV")
             i += 1
