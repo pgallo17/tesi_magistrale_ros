@@ -154,6 +154,7 @@ class SpeechDetectionNode:
 
             # Message publishing
             manger_service(msg)
+            self.enabled = True
             # pub.publish(msg)
             speech_save = np.reshape(speech.copy(), (-1, 1))
             sf.write(f"/home/files/{i}.wav", data=speech_save, samplerate=demo_settings.io.speech.sample_rate,format="WAV")
