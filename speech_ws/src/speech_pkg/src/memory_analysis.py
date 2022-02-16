@@ -20,7 +20,6 @@ def infer_signal(model, signal):
     with profile(activities=[ProfilerActivity.CUDA], record_shapes=True) as prof:
         with record_function("model_inference"):
             logits = model.forward(input_signal=audio_signal, input_signal_length=audio_signal_len)
-            time.sleep(2)
     print(prof.key_averages().table(sort_by="gpu_time_total", row_limit=10))
     return logits
 
