@@ -26,6 +26,6 @@ class MySileroVad(VoiceActivityDetector):
         audio_float32 = self.int2float(audio_int16.copy())
         audio32_torch = torch.from_numpy(audio_float32).cuda()
         new_confidence = self.model(audio32_torch, self.sampling_rate).item()
-        with open("/home/files/confidence.txt", "a") as fil:
-            print(new_confidence, file=fil)
+        # with open("/home/files/confidence.txt", "a") as fil:
+        #     print(new_confidence, file=fil)
         return True if new_confidence > self.threshold else False
