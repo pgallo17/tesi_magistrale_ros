@@ -4,23 +4,20 @@ import numpy as np
 from nemo.core.neural_types import NeuralType, AudioSignal, LengthsType
 from nemo.core.classes import IterableDataset
 from torch.utils.data import DataLoader
-from settings import pepper, global_utils
+from settings import global_utils
 import torch
-import sys
 from pathlib import Path
-import argparse
 import time
-from lang_settings import AVAILABLE_LANGS
 
 def infer_signal(model, signal):
     data_layer.set_signal(signal)
     batch = next(iter(data_loader))
     audio_signal, audio_signal_len = batch
     audio_signal, audio_signal_len = audio_signal.to(model.device), audio_signal_len.to(model.device)
-    with profile(activities=[ProfilerActivity.CUDA, ProfilerActivity.CPU], record_shapes=True) as prof:
-        with record_function("model_inference"):
-            logits = model(input_signal=audio_signal, input_signal_length=audio_signal_len)
-    print(prof.key_averages().table(sort_by="gpu_time_total", row_limit=10))
+    start_time = time.time()
+    logits = model(input_signal=audio_signal, input_signal_length=audio_signal_len)
+    end_time = time.time()
+    latency.append(end_time-start_time)
     return logits
 
 class AudioDataLayer(IterableDataset):
@@ -112,4 +109,8 @@ if __name__ == "__main__":
     audio = np.random.rand(num_samples)
     data_layer = AudioDataLayer(sample_rate=16000)
     data_loader = DataLoader(data_layer, batch_size=1, collate_fn=data_layer.collate_fn)
-    classifier.predict_cmd(audio)
+    latency = []
+    for e in range(200):
+        classifier.predict_cmd(audio)
+    mean_value = np.array(latency).mean()
+    print("Running  time:", mean_value)
