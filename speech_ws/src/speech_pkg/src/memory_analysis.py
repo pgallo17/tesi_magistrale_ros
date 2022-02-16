@@ -17,10 +17,8 @@ def infer_signal(model, signal):
     batch = next(iter(data_loader))
     audio_signal, audio_signal_len = batch
     audio_signal, audio_signal_len = audio_signal.to(model.device), audio_signal_len.to(model.device)
-    with profile(activities=[ProfilerActivity.CUDA], record_shapes=True) as prof:
-        with record_function("model_inference"):
-            logits = model(input_signal=audio_signal, input_signal_length=audio_signal_len)
-    print(prof.key_averages().table(sort_by="gpu_time_total", row_limit=10))
+    logits = model(input_signal=audio_signal, input_signal_length=audio_signal_len)
+    print(logits)
     return logits
 
 class AudioDataLayer(IterableDataset):
