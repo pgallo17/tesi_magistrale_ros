@@ -92,11 +92,9 @@ class SpeechDetectionNode:
         self.respeaker = ReSpeakerMicArrayV2()
 
         # Auxiliary VAD
-        silero = SileroVAD(
-            demo_settings.ai.audio.vad.model,
-            demo_settings.ai.audio.vad.threshold,
-            demo_settings.ai.audio.vad.sampling_rate,
-            demo_settings.ai.audio.vad.device
+        silero = MySileroVad(
+            threshold=demo_settings.ai.audio.vad.threshold,
+            sampling_rate=demo_settings.ai.audio.vad.sampling_rate
         )
 
 
