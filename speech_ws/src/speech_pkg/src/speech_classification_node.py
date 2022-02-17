@@ -88,7 +88,8 @@ class Classifier:
         probs = probs.cpu().detach().numpy()
         REJECT_LABEL = len(probs) - 1
         if probs[0, REJECT_LABEL] >= 0.23:
-            return np.array(REJECT_LABEL), probs
+            cmd = np.array(REJECT_LABEL)
+            print(cmd.shape)
         else:
             cmd = np.argmax(probs, axis=1)
         return cmd, probs
