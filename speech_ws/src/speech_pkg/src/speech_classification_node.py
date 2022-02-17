@@ -87,7 +87,7 @@ class Classifier:
         probs = self.model.predict(logits)
         probs = probs.cpu().detach().numpy()
         REJECT_LABEL = len(probs) - 1
-        if probs[0, REJECT_LABEL] >= 0.78:
+        if probs[0, REJECT_LABEL] >= 0.23:
             return REJECT_LABEL, probs
         else:
             cmd = np.argmax(probs, axis=1)
