@@ -87,7 +87,8 @@ class Classifier:
         probs = self.model.predict(logits)
         probs = probs.cpu().detach().numpy()
         REJECT_LABEL = len(probs) - 1
-        # print(probs)
+        print(probs)
+        print("*"*30)
         print(probs[0, REJECT_LABEL])
         if probs[0, REJECT_LABEL] >= 0.23:
             cmd = np.array([REJECT_LABEL])
