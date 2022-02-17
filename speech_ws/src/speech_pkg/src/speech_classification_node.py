@@ -86,7 +86,11 @@ class Classifier:
         logits = infer_signal(self.model, signal)
         probs = self.model.predict(logits)
         probs = probs.cpu().detach().numpy()
-        cmd = np.argmax(probs, axis=1)
+        REJECT_LABEL = len(probs) - 1
+        if probs[1, REJECT_LABEL] >= 0.78:
+            return REJECT_LABEL, probs
+        else:
+            cmd = np.argmax(probs, axis=1)
         return cmd, probs
 
     def parse_req(self, req):
