@@ -90,7 +90,7 @@ class Classifier:
         print(probs)
         print("*"*30)
         print(probs[0, REJECT_LABEL])
-        if probs[0, REJECT_LABEL] >= 0.23:
+        if probs[0, REJECT_LABEL] <= 0.23:
             cmd = np.array([REJECT_LABEL])
             print(cmd.shape)
         else:
