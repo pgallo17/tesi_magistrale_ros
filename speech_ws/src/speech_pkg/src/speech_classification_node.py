@@ -86,7 +86,7 @@ class Classifier:
         logits = infer_signal(self.model, signal)
         probs = self.model.predict(logits)
         probs = probs.cpu().detach().numpy()
-        REJECT_LABEL = len(probs) - 1
+        REJECT_LABEL = probs.shape[1] - 1
         print(probs)
         print("*"*30)
         print(probs[0, REJECT_LABEL])
