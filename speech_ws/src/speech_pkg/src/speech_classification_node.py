@@ -87,7 +87,11 @@ class Classifier:
         probs = self.model.predict(logits)
         probs = probs.cpu().detach().numpy()
         REJECT_LABEL = probs.shape[1] - 1
-        cmd = np.argmax(probs, axis=1)
+        if probs[0, REJECT_LABEL] >= 0.23:
+            cmd = np.array([REJECT_LABEL])
+            print(cmd.shape)
+        else:
+            cmd = np.argmax(probs, axis=1)
         return cmd, probs
 
     def parse_req(self, req):
