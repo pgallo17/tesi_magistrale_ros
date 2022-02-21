@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # coding=utf-8
 import rospy
-import qi
+# import qi
 from commands import command_eng, command_ita
 from speech_pkg.srv import *
 import argparse
