@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # coding=utf-8
 import rospy
-# import qi
+import qi
 from commands import command_eng, command_ita
 from speech_pkg.srv import *
 import argparse
@@ -106,8 +106,6 @@ if __name__ == "__main__":
     parser.add_argument("--ip", required=True, dest="ip", type=str)
     args, unknown = parser.parse_known_args(args=rospy.myargv(argv=sys.argv)[1:])
     IP = args.ip
-    print(IP)
-    print('tcp://%s:9559' % IP)
     if args.lang not in AVAILABLE_LANGS:
         raise Exception("Selected lang not available.\nAvailable langs:", AVAILABLE_LANGS)
     init_dict()
