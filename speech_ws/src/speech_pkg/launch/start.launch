@@ -1,7 +1,8 @@
 <launch>
     <arg name="lang" default="eng"/>
+    <arg name="ip" default="10.0.1.230"/>
     <node name="classifier" pkg="speech_pkg" type="speech_classification_node.py" output="screen" args="--lang $(arg lang)"/>
-    <node name="talker" pkg="speech_pkg" type="talker_node.py" output="screen" args="--lang $(arg lang)"/>
+    <node name="talker" pkg="speech_pkg" type="talker_node.py" output="screen" args="--lang $(arg lang) --ip $(arg ip)"/>
     <node name="manager" pkg="speech_pkg" type="manager_node.py" output="screen"/>
     <node name="speech_detection_node" pkg="speech_pkg" type="speech_detection_node.py" output="screen"/>
     <node name="microphone_node" pkg="speech_pkg" type="microphone_node.py"/>
