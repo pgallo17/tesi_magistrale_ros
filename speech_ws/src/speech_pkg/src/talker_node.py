@@ -103,6 +103,7 @@ if __name__ == "__main__":
     N_BEST_VALUES = 3
     parser = argparse.ArgumentParser()
     parser.add_argument("--lang", required=True, dest="lang", type=str)
+    parser.add_argument("--ip", required=True, dest="ip", type=str)
     args, unknown = parser.parse_known_args(args=rospy.myargv(argv=sys.argv)[1:])
     IP = args.ip
     print(IP)
