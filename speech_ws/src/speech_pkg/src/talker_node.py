@@ -79,7 +79,7 @@ def connect_robot():
     print("Robot connected")
 
     motion_service = session.service("ALMotion")
-    # motion_service.wakeUp()
+    motion_service.wakeUp()
 
     #TextToSpeech service
     tts = session.service("ALTextToSpeech")
