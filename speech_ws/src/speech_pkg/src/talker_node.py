@@ -107,6 +107,7 @@ if __name__ == "__main__":
     args, unknown = parser.parse_known_args(args=rospy.myargv(argv=sys.argv)[1:])
     IP = args.ip
     print(IP)
+    print('tcp://%s:9559' % IP)
     if args.lang not in AVAILABLE_LANGS:
         raise Exception("Selected lang not available.\nAvailable langs:", AVAILABLE_LANGS)
     init_dict()
