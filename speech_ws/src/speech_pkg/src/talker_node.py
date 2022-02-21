@@ -101,10 +101,10 @@ def say(out_str):
 
 if __name__ == "__main__":
     N_BEST_VALUES = 3
-    IP = "10.0.1.230"
     parser = argparse.ArgumentParser()
     parser.add_argument("--lang", required=True, dest="lang", type=str)
     args, unknown = parser.parse_known_args(args=rospy.myargv(argv=sys.argv)[1:])
+    IP = args.ip
     if args.lang not in AVAILABLE_LANGS:
         raise Exception("Selected lang not available.\nAvailable langs:", AVAILABLE_LANGS)
     init_dict()
