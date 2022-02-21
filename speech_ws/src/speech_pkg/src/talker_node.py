@@ -75,7 +75,7 @@ def connect_robot():
     # Connect to the robot
     print("Connecting to robot...")
     session = qi.Session()
-    session.connect('tcp://10.0.1.230:9559')  # Robot IP
+    session.connect('tcp://%s:9559' % IP )  # Robot IP
     print("Robot connected")
 
     motion_service = session.service("ALMotion")
@@ -92,7 +92,7 @@ def say(out_str):
         tts.say(out_str)
     except Exception:
         session = qi.Session()
-        session.connect('tcp://10.0.1.230:9559')
+        session.connect('tcp://%s:9559' % IP )
 
         tts = session.service("ALTextToSpeech")
         tts.setLanguage("Italian" if args.lang == "ita" else "English")
@@ -101,6 +101,7 @@ def say(out_str):
 
 if __name__ == "__main__":
     N_BEST_VALUES = 3
+    IP = "10.0.1.230"
     parser = argparse.ArgumentParser()
     parser.add_argument("--lang", required=True, dest="lang", type=str)
     args, unknown = parser.parse_known_args(args=rospy.myargv(argv=sys.argv)[1:])
