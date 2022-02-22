@@ -9,7 +9,7 @@ class MySileroVad(VoiceActivityDetector):
         self.sampling_rate = sampling_rate
         model, utils = torch.hub.load(repo_or_dir='snakers4/silero-vad',
                                       model='silero_vad',
-                                      force_reload=True)
+                                      force_reload=False)
         model = model.cuda()
         self.model = model
 
