@@ -1,10 +1,7 @@
 #!/usr/bin/python3
 
-from model import Model
+from model import ModelID
 import numpy as np
-from nemo.core.neural_types import NeuralType, AudioSignal, LengthsType
-from nemo.core.classes import IterableDataset
-from torch.utils.data import DataLoader
 from speech_pkg.srv import Classification, ClassificationResponse
 from settings import pepper, global_utils
 import torch
@@ -14,53 +11,19 @@ from pathlib import Path
 import argparse
 from lang_settings import AVAILABLE_LANGS
 
-def infer_signal(model, signal):
-    data_layer.set_signal(signal)
-    batch = next(iter(data_loader))
-    audio_signal, audio_signal_len = batch
-    audio_signal, audio_signal_len = audio_signal.to(model.device), audio_signal_len.to(model.device)
-    logits = model.forward(input_signal=audio_signal, input_signal_length=audio_signal_len)
-    return logits
 
-class AudioDataLayer(IterableDataset):
-    @property
-    def output_types(self):
-        return {
-            'audio_signal': NeuralType(('B', 'T'), AudioSignal(freq=self._sample_rate)),
-            'a_sig_length': NeuralType(tuple('B'), LengthsType()),
-        }
-
-    def __init__(self, sample_rate):
-        super().__init__()
-        self._sample_rate = sample_rate
-        self.output = True
-
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        if not self.output:
-            raise StopIteration
-        self.output = False
-        return torch.as_tensor(self.signal, dtype=torch.float32), \
-               torch.as_tensor(self.signal_shape, dtype=torch.int64)
-
-    def set_signal(self, signal):
-        self.signal = signal.astype(np.float32)
-        self.signal_shape = self.signal.size
-        self.output = True
-
-    def __len__(self):
-        return 1
 
 class Classifier:
     def __init__(self, lang):
-        self.model = self.load_model(lang)
-        self.model = self.model.eval()
-        if torch.cuda.is_available():
+        self.model = ModelID((None,1))
+        self.model.load_weights('nosynt_cos_mean_75\distiller_ita_no_synt.h5')
+        #self.model = self.load_model(lang)
+        #self.model = self.model.eval()
+        '''if torch.cuda.is_available():
             self.model = self.model.cuda()
         else:
             self.model = self.model.cpu()
+        '''
         self.init_node()
 
     def _pcm2float(self, sound: np.ndarray):
@@ -83,6 +46,17 @@ class Classifier:
         return signal_nw
 
     def predict_cmd(self, signal: np.ndarray):
+        x=np.reshape(signal,(1,signal.shape[0],1))
+        _,y=self.model.predict(x)
+        #print(y[0])
+        l=[]
+        for ele in y[0]:
+            l.append("{:.13f}".format(float(ele)))
+        yPredMax =  np.argmax(y)
+        return yPredMax,l[yPredMax]
+        
+
+    '''def predict_cmd(self, signal: np.ndarray):
         logits = infer_signal(self.model, signal)
         probs = self.model.predict(logits)
         probs = probs.cpu().detach().numpy()
@@ -93,13 +67,14 @@ class Classifier:
         else:
             cmd = np.argmax(probs, axis=1)
         return cmd, probs
+    '''
 
     def parse_req(self, req):
         signal = self.convert(req.data.data)
         cmd, probs = self.predict_cmd(signal)
-        assert len(cmd) == 1
+        '''assert len(cmd) == 1
         cmd = int(cmd[0])
-        probs = probs.tolist()[0]
+        probs = probs.tolist()[0]'''
         return ClassificationResponse(cmd, probs)
 
     def init_node(self):
@@ -126,6 +101,4 @@ if __name__ == "__main__":
     args, unknown = parser.parse_known_args(args=rospy.myargv(argv=sys.argv)[1:])
     if args.lang not in AVAILABLE_LANGS:
         raise Exception("Selected lang not available.\nAvailable langs:", AVAILABLE_LANGS)
-    data_layer = AudioDataLayer(sample_rate=16000)
-    data_loader = DataLoader(data_layer, batch_size=1, collate_fn=data_layer.collate_fn)
     classifier = Classifier(args.lang)
