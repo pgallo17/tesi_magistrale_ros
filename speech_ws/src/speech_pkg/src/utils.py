@@ -1,7 +1,7 @@
 import numpy as np
 from demo_utils.ai.audio.voice_activity_detector import VoiceActivityDetector
 import torch
-import soundfile as sf
+#import soundfile as sf
 
 class MySileroVad(VoiceActivityDetector):
     def __init__(self, threshold, sampling_rate):
