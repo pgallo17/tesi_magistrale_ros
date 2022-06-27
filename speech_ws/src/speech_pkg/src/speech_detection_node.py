@@ -11,7 +11,7 @@ from speech_recognition import AudioSource
 from speech_pkg.srv import *
 from utils import MySileroVad
 from pathlib import Path
-import soundfile as sf
+#import soundfile as sf
 import torch
 
 import numpy as np
@@ -153,7 +153,7 @@ class SpeechDetectionNode:
             manger_service(msg)
             # pub.publish(msg)
             speech_save = np.reshape(speech.copy(), (-1, 1))
-            sf.write(f"/home/files/{i}.wav", data=speech_save, samplerate=demo_settings.io.speech.sample_rate,format="WAV")
+            #sf.write(f"/home/files/{i}.wav", data=speech_save, samplerate=demo_settings.io.speech.sample_rate,format="WAV")
             i += 1
             self.enabled = True
             rospy.logdebug('Speech published with timestamps')
