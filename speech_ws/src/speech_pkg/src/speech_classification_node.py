@@ -16,7 +16,9 @@ from lang_settings import AVAILABLE_LANGS
 class Classifier:
     def __init__(self, lang):
         self.model = ModelID((None,1))
-        self.model.load_weights('nosynt_cos_mean_75\distiller_ita_no_synt.h5')
+        base_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("nosynt_cos_mean_75")
+        exp_dir = base_path.joinpath("distiller_ita_no_synt.h5")
+        self.model.load_weights(exp_dir)
         #self.model = self.load_model(lang)
         #self.model = self.model.eval()
         '''if torch.cuda.is_available():
