@@ -9,6 +9,7 @@ import rospy
 import sys
 from pathlib import Path
 import argparse
+import tensorflow as tf
 from lang_settings import AVAILABLE_LANGS
 
 
@@ -16,6 +17,7 @@ from lang_settings import AVAILABLE_LANGS
 class Classifier:
     def __init__(self, lang):
         self.model = ModelID((None,1))
+        print(tf.__version__)
         base_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("nosynt_cos_mean_75")
         exp_dir = base_path.joinpath("distiller_ita_no_synt.h5")
         self.model.load_weights(exp_dir)
