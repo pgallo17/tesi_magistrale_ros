@@ -150,7 +150,7 @@ class SpeechDetectionNode:
             msg.end_time = timestamps[1]
 
             # Message publishing
-            manger_service(msg)
+            'manger_service(msg)'
             # pub.publish(msg)
             speech_save = np.reshape(speech.copy(), (-1, 1))
             #sf.write(f"/home/files/{i}.wav", data=speech_save, samplerate=demo_settings.io.speech.sample_rate,format="WAV")
@@ -161,9 +161,9 @@ class SpeechDetectionNode:
 if __name__ == '__main__':
     rospy.init_node('speech_detection_node')
     rospy.loginfo("Waiting manager service")
-    rospy.wait_for_service('manager_service')
+    #rospy.wait_for_service('manager_service')
     rospy.loginfo("manager service found")
-    manger_service = rospy.ServiceProxy('manager_service', Manager)
+    #manger_service = rospy.ServiceProxy('manager_service', Manager)
     speech_detection = SpeechDetectionNode()
     speech_detection.start()
     
