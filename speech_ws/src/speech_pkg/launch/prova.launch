@@ -1,0 +1,9 @@
+<launch>
+    <arg name="lang" default="ita"/>
+    
+    <node name="classifier" pkg="speech_pkg" type="speech_classification_node.py" output="screen" args="--lang $(arg lang)"/>
+    
+    <node name="manager" pkg="speech_pkg" type="manager_node.py" output="screen"/>
+    <node name="speech_detection_node" pkg="speech_pkg" type="speech_detection_node.py" output="screen"/>
+    <node name="microphone_node" pkg="speech_pkg" type="microphone_node.py"/>
+</launch>
