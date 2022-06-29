@@ -51,7 +51,7 @@ class Classifier:
         return signal_nw
 
     def predict_cmd(self, signal: np.ndarray):
-        x=np.reshape(signal,(signal.shape[0],1))
+        x=np.reshape(signal,(1,signal.shape[0],1))
         print('classification----------------------------')
         y=self.model(x,training=False)
         print(y)
