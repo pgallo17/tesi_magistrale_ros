@@ -8,7 +8,7 @@ def run(req):
     cmd, probs = res.cmd, res.probs
     #res = speech(cmd, probs)
     #return ManagerResponse(res.flag)
-    return res.flag
+    return True
 
 if __name__ == "__main__":
     rospy.init_node('manager')

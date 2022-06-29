@@ -236,7 +236,7 @@ class MobileNetV3():
         if input_tensor is not None:
             inputs = keras_utils.get_source_inputs(input_tensor)
 
-        model = Model(inputs=inputs, outputs=[net,y])
+        model = Model(inputs=inputs, outputs=y)
 
         if weights:
             model.load_weights(weights)

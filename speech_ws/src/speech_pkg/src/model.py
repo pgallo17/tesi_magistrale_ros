@@ -49,7 +49,9 @@ def ModelID(input_shape):
     # Backbone
     input_shape = (None, PARAMS['mel_bands'],1)
     backbone = MobileNetV3_large(input_shape=input_shape, input_tensor=None, num_classes=29, include_top=True, pooling='avg', weights=None)    
-    y_emb,y_class = backbone(x)
+    #y_emb,y_class = backbone(x)
+    y_class = backbone(x)
+
 
     # Final Model
     model = Model(inputs=inputs, outputs=y_class)
