@@ -19,9 +19,9 @@ class Classifier:
         self.model = ModelID((None,1))
         
         base_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("nosynt_cos_mean_75")
-        exp_dir = base_path.joinpath("distiller_ita_no_synt.h5")
+        #exp_dir = base_path.joinpath("distiller_ita_no_synt.h5")
         print(exp_dir)
-        self.model.load_weights("nosynt_mse_mean_1/distiller_ita_no_synt.h5")
+        self.model.load_weights(base_path+"distiller_ita_no_synt.h5")
         #self.model = self.load_model(lang)
         #self.model = self.model.eval()
         '''if torch.cuda.is_available():
