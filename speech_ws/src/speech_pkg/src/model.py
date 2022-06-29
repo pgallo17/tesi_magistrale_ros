@@ -52,6 +52,6 @@ def ModelID(input_shape):
     y_emb,y_class = backbone(x)
 
     # Final Model
-    model = Model(inputs=inputs, outputs=[y_emb,y_class])
+    model = Model(inputs=inputs, outputs=y_class)
 
     return model

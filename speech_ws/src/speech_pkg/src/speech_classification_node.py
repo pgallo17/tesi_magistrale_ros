@@ -53,8 +53,8 @@ class Classifier:
     def predict_cmd(self, signal: np.ndarray):
         x=np.reshape(signal,(1,signal.shape[0],1))
         print('classification----------------------------')
-        prova,y=self.model.predict(x)
-        print(prova,y)
+        y=self.model.predict(x)
+        print(y)
         l=[]
         for ele in y[0]:
             l.append("{:.13f}".format(float(ele)))
