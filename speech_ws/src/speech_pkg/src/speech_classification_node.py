@@ -55,7 +55,7 @@ class Classifier:
         x=np.reshape(signal,(1,signal.shape[0],1))
         print('classification----------------------------')
         
-        prova,y=self.model.predict(x)
+        prova,y=self.model.detect(x)
         print(prova,y)
         l=[]
         for ele in y[0]:
