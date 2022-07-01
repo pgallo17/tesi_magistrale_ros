@@ -22,6 +22,7 @@ class Classifier:
         exp_dir = base_path.joinpath("distiller_ita_no_synt.h5")
         print(exp_dir)
         self.model.load_weights("../../home/speech_ws/nosynt_cos_mean_75/distiller_ita_no_synt.h5")
+        self.model.keras_model._make_predict_function()
         #self.model = self.load_model(lang)
         #self.model = self.model.eval()
         '''if torch.cuda.is_available():
@@ -53,6 +54,7 @@ class Classifier:
     def predict_cmd(self, signal: np.ndarray):
         x=np.reshape(signal,(1,signal.shape[0],1))
         print('classification----------------------------')
+        
         prova,y=self.model.predict(x)
         print(prova,y)
         l=[]
