@@ -67,8 +67,9 @@ model = ModelID((None,1))
 model.load_weights('../../../nosynt_cos_mean_75/distiller_ita_no_synt.h5')
 graph = tf.get_default_graph()
 #model._make_predict_function()
-with graph.as_default():
+with tf.Session() as sess: 
     _,y=model(x,training=False)
+    print(y)
     
 
-print(y.item())
+
