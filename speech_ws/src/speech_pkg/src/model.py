@@ -66,6 +66,6 @@ model.load_weights('../../../nosynt_cos_mean_75/distiller_ita_no_synt.h5')
 graph = tf.compat.v1.get_default_graph
 #model._make_predict_function()
 with graph.as_default():
-    _,y=model.predict(x)
+    _,y=model(x,training=False)
 
 print(y)
