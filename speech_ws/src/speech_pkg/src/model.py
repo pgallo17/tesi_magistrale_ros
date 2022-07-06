@@ -15,6 +15,7 @@ PARAMS = {
     'mel_max_hz': 7500.0,
 }
 
+tf.compat.v1.enable_eager_execution()
 
 
 def ModelID(input_shape):
@@ -71,5 +72,4 @@ with graph.as_default():
     _,y=model(x,training=False)
     
 
-tf.enable_eager_execution()
 print(y.numpy())
