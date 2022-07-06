@@ -63,7 +63,9 @@ speech,sr=librosa.load("ita_0.wav",sr=16000)
 x=np.reshape(speech,(1,speech.shape[0],1))
 model = ModelID((None,1))
 model.load_weights('../../../nosynt_cos_mean_75/distiller_ita_no_synt.h5')
-model._make_predict_function()
-_,y=model.predict(x)
+graph = tf.get_default_graph()
+#model._make_predict_function()
+with graph.as_default():
+    _,y=model.predict(x)
 
 print(y)
