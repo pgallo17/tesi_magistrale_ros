@@ -69,7 +69,7 @@ graph = tf.get_default_graph()
 #model._make_predict_function()
 with tf.Session() as sess: 
     _,y=model(x,training=False)
-    print(y)
+    print(y.eval())
     
 
 
