@@ -1,6 +1,6 @@
 import numpy as np
 import librosa
-import tensorflow.compat.v1 as tf
+import tensorflow as tf
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input
 from layers import ZScoreNormalization, LogMelgramLayer
@@ -14,7 +14,7 @@ PARAMS = {
     'mel_min_hz': 125.0,
     'mel_max_hz': 7500.0,
 }
-
+tf.compat.v1.disable_v2_behavior()
 tf.enable_eager_execution()
 
 def ModelID(input_shape):
