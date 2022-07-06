@@ -69,6 +69,6 @@ graph = tf.get_default_graph()
 #model._make_predict_function()
 with graph.as_default():
     _,y=model(x,training=False)
+    print(y.eval())
 
 #tf.enable_eager_execution()
-print(y.eval())
