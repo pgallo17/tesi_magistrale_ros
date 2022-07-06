@@ -62,7 +62,7 @@ def ModelID(input_shape):
 speech,sr=librosa.load("ita_0.wav",sr=16000)
 x=np.reshape(speech,(1,speech.shape[0],1))
 model = ModelID((None,1))
-model.load_weights('../../home/speech_ws/nosynt_cos_mean_75/distiller_ita_no_synt.h5')
+model.load_weights('../../../nosynt_cos_mean_75/distiller_ita_no_synt.h5')
 
 _,y=model.predict(x)
 
