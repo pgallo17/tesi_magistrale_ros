@@ -1,6 +1,6 @@
 import numpy as np
 import librosa
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input
 from layers import ZScoreNormalization, LogMelgramLayer
@@ -15,7 +15,7 @@ PARAMS = {
     'mel_max_hz': 7500.0,
 }
 
-
+tf.enable_eager_execution()
 
 def ModelID(input_shape):
 
@@ -30,10 +30,10 @@ def ModelID(input_shape):
     num_spectrogram_bins = fft_length // 2 + 1
 
     
-    layer1 = tf.keras.layers.Lambda(lambda x: x / tf.math.reduce_max(x,-2,keepdims=True))
+    x = tf.keras.layers.Lambda(lambda x: x / tf.math.reduce_max(x,-2,keepdims=True))(inputs)
    
     # Mel Spectrogram
-    layer2 = LogMelgramLayer(
+    x = LogMelgramLayer(
         num_fft=512,
         window_length=window_length_samples,
         hop_length=hop_length_samples,
@@ -42,30 +42,20 @@ def ModelID(input_shape):
         spec_bins=num_spectrogram_bins,
         fmin=PARAMS['mel_min_hz'],
         fmax=PARAMS['mel_max_hz']
-    )
+    )(x)
 
     # Normalize along coeffients and time
-    layer3= ZScoreNormalization(axis=[1, 2])
+    x = ZScoreNormalization(axis=[1, 2])(x)
     
-    layer4 = tf.keras.layers.Reshape((-1, x.shape[2], 1))
+    x = tf.keras.layers.Reshape((-1, x.shape[2], 1))(x)
    
     # Backbone
     input_shape = (None, PARAMS['mel_bands'],1)
-    layer5 = MobileNetV3_large(input_shape=input_shape, input_tensor=None, num_classes=29, include_top=True, pooling='avg', weights=None)    
-    #y_emb,y_class = backbone(x)
-
-    model = tf.keras.Sequential(
-    [
-        inputs,
-        layer1,
-        layer2,
-        layer3,
-        layer4,
-        layer5,])  
+    backbone = MobileNetV3_large(input_shape=input_shape, input_tensor=None, num_classes=29, include_top=True, pooling='avg', weights=None)    
+    y_emb,y_class = backbone(x)
 
     # Final Model
-    
-    #model = Model(inputs=inputs, outputs=[y_emb,y_class])
+    model = Model(inputs=inputs, outputs=[y_emb,y_class])
 
     return model
 
@@ -75,10 +65,10 @@ speech,sr=librosa.load("ita_0.wav",sr=16000)
 x=np.reshape(speech,(1,speech.shape[0],1))
 model = ModelID((None,1))
 model.load_weights('../../../nosynt_cos_mean_75/distiller_ita_no_synt.h5')
-'''graph = tf.get_default_graph()
+graph = tf.get_default_graph()
 #model._make_predict_function()
 with graph.as_default():
-    with tf.Session() as sess:
-        _,y=model(x,training=False)
-        print(y.eval())'''
+    _,y=model(x,training=False)
     
+
+print(y.numpy())
