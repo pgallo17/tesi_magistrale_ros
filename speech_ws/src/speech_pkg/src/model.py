@@ -68,4 +68,4 @@ graph = tf.get_default_graph()
 with graph.as_default():
     _,y=model(x,training=False)
 
-print(y)
+print(y.numpy())
