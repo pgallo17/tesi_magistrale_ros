@@ -15,6 +15,9 @@ PARAMS = {
     'mel_max_hz': 7500.0,
 }
 
+
+tf.config.run_functions_eagerly(True)
+
 def ModelID(input_shape):
 
     # Input
