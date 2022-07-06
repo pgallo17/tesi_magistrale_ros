@@ -1,4 +1,5 @@
 import numpy as np
+import librosa
 import tensorflow as tf
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input
@@ -55,3 +56,14 @@ def ModelID(input_shape):
     model = Model(inputs=inputs, outputs=[y_emb,y_class])
 
     return model
+
+
+
+speech,sr=librosa.load("ita_0.wav",sr=16000)
+x=np.reshape(speech,(1,speech.shape[0],1))
+model = ModelID((None,1))
+model.load_weights('../../home/speech_ws/nosynt_cos_mean_75/distiller_ita_no_synt.h5')
+
+_,y=model.predict(x)
+
+print(y)
