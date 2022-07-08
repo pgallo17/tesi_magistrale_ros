@@ -74,11 +74,11 @@ with session as sess:
   sess.run(tf.global_variables_initializer())
   model.load_weights('../../../nosynt_cos_mean_75/distiller_ita_no_synt.h5')
   _,y=model(x,training=False)
-  prob=sess.run(y) # ok because `sess.graph == graph`
+  #prob=sess.run(y) # ok because `sess.graph == graph`
 
-l=[]
+'''l=[]
 for ele in prob[0]:
     l.append("{:.13f}".format(float(ele)))
 yPredMax =  np.argmax(prob)
 print(yPredMax,l[yPredMax])
-print(l)
+print(l)'''
