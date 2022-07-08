@@ -67,14 +67,9 @@ model = ModelID((None,1))
 
 graph = tf.get_default_graph()
 #model._make_predict_function()
-config = tf.ConfigProto()
-config.gpu_options.allow_growth = True
-session = tf.Session(config=config)
+model.load_weights('../../../nosynt_cos_mean_75/distiller_ita_no_synt.h5')
+_,y=model.predict(x)
 
-# This works
-with session as sess:
-  model.load_weights('../../../nosynt_cos_mean_75/distiller_ita_no_synt.h5')
-  _,y=model.predict(x)
 
 '''l=[]
 for ele in prob[0]:
