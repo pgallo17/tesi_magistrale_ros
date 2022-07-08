@@ -66,10 +66,9 @@ x=np.reshape(speech,(1,speech.shape[0],1))
 model = ModelID((None,1))
 
 graph = tf.get_default_graph()
+#model._make_predict_function()
 
-config = tf.ConfigProto()
-config.gpu_options.allow_growth = True
-session = tf.Session(config=config)
+session=tf.Session()
 # This works
 with session as sess:
   
