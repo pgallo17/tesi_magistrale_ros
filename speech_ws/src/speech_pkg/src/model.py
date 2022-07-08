@@ -67,11 +67,10 @@ model = ModelID((None,1))
 
 graph = tf.get_default_graph()
 #model._make_predict_function()
-'''config = tf.ConfigProto()
+config = tf.ConfigProto()
 config.gpu_options.allow_growth = True
-sess = tf.Session(config=config)'''
+sess = tf.Session(config=config)
 
-session=tf.Session()
 # This works
 with session as sess:
   model.load_weights('../../../nosynt_cos_mean_75/distiller_ita_no_synt.h5')
