@@ -69,7 +69,7 @@ graph = tf.get_default_graph()
 #model._make_predict_function()
 config = tf.ConfigProto()
 config.gpu_options.allow_growth = True
-sess = tf.Session(config=config)
+session = tf.Session(config=config)
 
 # This works
 with session as sess:
