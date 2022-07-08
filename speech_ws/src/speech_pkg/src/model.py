@@ -64,11 +64,21 @@ def ModelID(input_shape):
 speech,sr=librosa.load("ita_0.wav",sr=16000)
 x=np.reshape(speech,(1,speech.shape[0],1))
 model = ModelID((None,1))
-model.load_weights('../../../nosynt_cos_mean_75/distiller_ita_no_synt.h5')
+
 graph = tf.get_default_graph()
 #model._make_predict_function()
-with graph.as_default():
-    _,y=model(x,training=False)
-    
 
-print(y.numpy())
+session=tf.Session()
+# This works
+with session as sess:
+  sess.run(tf.global_variables_initializer())
+  model.load_weights('../../../nosynt_cos_mean_75/distiller_ita_no_synt.h5')
+  _,y=model(x,training=False)
+  prob=sess.run(y) # ok because `sess.graph == graph`
+
+l=[]
+for ele in prob[0]:
+    l.append("{:.13f}".format(float(ele)))
+yPredMax =  np.argmax(prob)
+print(yPredMax,l[yPredMax])
+print(l)
