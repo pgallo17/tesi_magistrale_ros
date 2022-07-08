@@ -71,10 +71,11 @@ graph = tf.get_default_graph()
 session=tf.Session()
 # This works
 with session as sess:
-  sess.run(tf.global_variables_initializer())
+  
   model.load_weights('../../../nosynt_cos_mean_75/distiller_ita_no_synt.h5')
   _,y=model(x,training=False)
-  #prob=sess.run(y) # ok because `sess.graph == graph`
+  sess.run(tf.global_variables_initializer())
+  prob=sess.run(y) # ok because `sess.graph == graph`
 
 '''l=[]
 for ele in prob[0]:
