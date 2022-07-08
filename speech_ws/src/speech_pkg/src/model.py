@@ -74,7 +74,7 @@ with session as sess:
   
   model.load_weights('../../../nosynt_cos_mean_75/distiller_ita_no_synt.h5')
   _,y=model(x,training=False)
-  sess.run(tf.global_variables_initializer())
+  sess.run(tf.compat.v1.global_variables_initializer())
   prob=sess.run(y) # ok because `sess.graph == graph`
 
 '''l=[]
