@@ -14,8 +14,8 @@ PARAMS = {
     'mel_min_hz': 125.0,
     'mel_max_hz': 7500.0,
 }
-tf.compat.v1.disable_v2_behavior()
-tf.compat.v1.enable_eager_execution()
+'''tf.compat.v1.disable_v2_behavior()
+tf.compat.v1.enable_eager_execution()'''
 
 def ModelID(input_shape):
 
