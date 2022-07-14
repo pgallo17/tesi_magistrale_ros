@@ -6,6 +6,15 @@ from tensorflow.keras.layers import Input
 from layers import ZScoreNormalization, LogMelgramLayer
 from MobileNetV3 import MobileNetV3_large
 
+def Hswish(x):
+  return x * tf.nn.relu6(x + 3) / 6
+
+def HSigmoid(x):
+        return tf.nn.relu6(x + 3) / 6
+
+
+
+
 PARAMS = {
     'sample_rate': 16000,
     'stft_window_seconds': 0.025,
@@ -68,12 +77,14 @@ model = ModelID((None,1))
 graph = tf.get_default_graph()
 #model._make_predict_function()
 model.load_weights('../../../nosynt_cos_mean_75/distiller_ita_no_synt.h5')
-_,y=model.predict(x)
+new_model = tf.keras.models.load_model('../../../nosynt_cos_mean_75/my_model',custom_objects={'LogMelgramLayer':LogMelgramLayer,'ZScoreNormalization':ZScoreNormalization,'Hswish':Activation(Hswish),'HSigmoid':Activation(HSigmoid)})
+
+_,prob=new_model.predict(x)
 
 
-'''l=[]
+l=[]
 for ele in prob[0]:
     l.append("{:.13f}".format(float(ele)))
 yPredMax =  np.argmax(prob)
 print(yPredMax,l[yPredMax])
-print(l)'''
+print(l)
