@@ -79,7 +79,7 @@ graph = tf.get_default_graph()
 #model._make_predict_function()
 model.load_weights('../../../nosynt_cos_mean_75/distiller_ita_no_synt.h5')
 new_model = tf.keras.models.load_model('../../../nosynt_cos_mean_75/my_model',custom_objects={'LogMelgramLayer':LogMelgramLayer,'ZScoreNormalization':ZScoreNormalization,'Hswish':Activation(Hswish),'HSigmoid':Activation(HSigmoid)})
-
+new_model.compile(optimizer="adam", loss="mean_squared_error")
 _,prob=new_model.predict(x)
 
 
