@@ -14,8 +14,9 @@ from lang_settings import AVAILABLE_LANGS
 import os
 import onnxruntime
 
-print(os.listdir())
-
+print(os.listdir('../../..'))
+print(os.listdir('../'))
+print(os.listdir('../..'))
 PARAMS = {
     'sample_rate': 16000,
     'stft_window_seconds': 0.025,
