@@ -126,12 +126,14 @@ class Classifier:
         
         result=self.session.run([self.output_name],{self.input_name:b})
 
-        print('check1')
-        l=[]
+        
+        '''l=[]
         for ele in result[0]:
-            l.append("{:.13f}".format(float(ele)))
+            l.append("{:.13f}".format(float(ele)))'''
+        
+
         yPredMax =  np.argmax(result)
-        print('check2')
+        
         print(yPredMax,type(yPredMax),type(result))
 
         
