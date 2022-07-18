@@ -14,6 +14,8 @@ from lang_settings import AVAILABLE_LANGS
 import os
 import onnxruntime
 
+print(os.listdir())
+
 PARAMS = {
     'sample_rate': 16000,
     'stft_window_seconds': 0.025,
@@ -63,7 +65,7 @@ class Classifier:
         base_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("nosynt_cos_mean_75")
         exp_dir = base_path.joinpath("distiller_ita_no_synt.h5")
         print(exp_dir)
-        onnx_model = '../../../nosynt_cos_mean_75/model.onnx'
+        onnx_model = '/../../nosynt_cos_mean_75/model.onnx'
         self.session=onnxruntime.InferenceSession(onnx_model,None,providers=['CPUExecutionProvider'])
         self.input_name=self.session.get_inputs()[0].name
         self.output_name=self.session.get_outputs()[1].name
