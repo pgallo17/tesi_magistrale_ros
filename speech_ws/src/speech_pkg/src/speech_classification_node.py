@@ -4,6 +4,7 @@ from model import ModelID
 import numpy as np
 from speech_pkg.srv import Classification, ClassificationResponse
 from settings import pepper, global_utils
+from std_msgs.msg import String,Int8,Float32MultiArray 
 import torch
 import rospy
 import sys
@@ -122,9 +123,9 @@ class Classifier:
 
             norm_tensor = tf.reshape(norm_tensor,(1, norm_tensor.shape[0], norm_tensor.shape[1],norm_tensor.shape[2]))
             
-            b=sess.run(norm_tensor) 
+            norm_tensor=sess.run(norm_tensor) 
         
-        result=self.session.run([self.output_name],{self.input_name:b})
+        result=self.session.run([self.output_name],{self.input_name:norm_tensor})
 
         
         '''l=[]
@@ -133,11 +134,15 @@ class Classifier:
         
 
         yPredMax =  np.argmax(result)
+        a=Int8()
+        a.data=yPredMax[0]
+        b=Float32MultiArray()
+        b.data=result
         
-        print(yPredMax,type(yPredMax),type(result))
+        print(yPredMax,type(yPredMax),type(result),a,b)
 
         
-        return yPredMax,result
+        return a,b
         
 
 
