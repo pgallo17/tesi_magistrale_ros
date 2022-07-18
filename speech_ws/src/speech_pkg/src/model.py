@@ -172,7 +172,7 @@ with session as sess:
 
 
 onnx_model = '../../../nosynt_cos_mean_75/model.onnx'
-session=onnxruntime.InferenceSession(onnx_model,None)
+session=onnxruntime.InferenceSession(onnx_model,None,providers=['CPUExecutionProvider'])
 input_name=session.get_inputs()[0].name
 output_name=session.get_outputs()[1].name
 result=session.run([output_name],{input_name:b})
