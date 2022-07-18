@@ -46,12 +46,7 @@ axis=[1, 2]
 eps=1e-07
 
 assert num_fft // 2 + 1 == num_spec_bins
-lin_to_mel_matrix = tf.signal.linear_to_mel_weight_matrix(
-    num_mel_bins=num_mel_bins,
-    num_spectrogram_bins=num_spec_bins,
-    sample_rate=sr,
-    lower_edge_hertz=f_min,
-    upper_edge_hertz=f_max,)
+
         
 
 
@@ -103,32 +98,30 @@ class Classifier:
         # tf.signal.stft seems to be applied along the last axis
         session=tf.Session()
         with session as sess:
-            print('check1')
+            lin_to_mel_matrix = tf.signal.linear_to_mel_weight_matrix(num_mel_bins=num_mel_bins,num_spectrogram_bins=num_spec_bins,
+            sample_rate=sr,lower_edge_hertz=f_min,upper_edge_hertz=f_max,)            
             stfts = tf.signal.stft(
                 x[:,:,0], frame_length=window_length, frame_step=hop_length, pad_end=pad_end
             )
-            print('check2')
             mag_stfts = tf.abs(stfts)
-            print('check3')
+       
             melgrams = tf.tensordot(tf.square(mag_stfts), lin_to_mel_matrix, axes=[2, 0])
-            print('check4')
+           
             log_melgrams = self.tf_log10(melgrams + log_offset)
-            print('check5')
+
 
             mean_values = tf.math.reduce_mean(
                         log_melgrams, axis=axis, keepdims=True)
 
-            print('check6')
-
             dev_std = tf.math.reduce_std(
                 log_melgrams, axis=axis, keepdims=True) + tf.constant(eps)
-            print('check7')
+        
             norm_tensor = (log_melgrams - mean_values)/dev_std
 
             norm_tensor = tf.reshape(norm_tensor,(-1, norm_tensor.shape[2], 1))
 
             norm_tensor = tf.reshape(norm_tensor,(1, norm_tensor.shape[0], norm_tensor.shape[1],norm_tensor.shape[2]))
-            print('check8')
+            
             b=sess.run(norm_tensor) 
         
         result=self.session.run([self.output_name],{self.input_name:b})
