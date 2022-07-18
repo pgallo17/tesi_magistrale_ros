@@ -101,26 +101,26 @@ class Classifier:
         print('classification----------------------------')
 
         # tf.signal.stft seems to be applied along the last axis
-        stfts = tf.signal.stft(
-            x[:,:,0], frame_length=window_length, frame_step=hop_length, pad_end=pad_end
-        )
-        mag_stfts = tf.abs(stfts)
-        melgrams = tf.tensordot(tf.square(mag_stfts), lin_to_mel_matrix, axes=[2, 0])
-        log_melgrams = self.tf_log10(melgrams + log_offset)
-
-        mean_values = tf.math.reduce_mean(
-                    log_melgrams, axis=axis, keepdims=True)
-
-        dev_std = tf.math.reduce_std(
-            log_melgrams, axis=axis, keepdims=True) + tf.constant(eps)
-        norm_tensor = (log_melgrams - mean_values)/dev_std
-
-        norm_tensor = tf.reshape(norm_tensor,(-1, norm_tensor.shape[2], 1))
-
-        norm_tensor = tf.reshape(norm_tensor,(1, norm_tensor.shape[0], norm_tensor.shape[1],norm_tensor.shape[2]))
-
         session=tf.Session()
         with session as sess:
+            stfts = tf.signal.stft(
+                x[:,:,0], frame_length=window_length, frame_step=hop_length, pad_end=pad_end
+            )
+            mag_stfts = tf.abs(stfts)
+            melgrams = tf.tensordot(tf.square(mag_stfts), lin_to_mel_matrix, axes=[2, 0])
+            log_melgrams = self.tf_log10(melgrams + log_offset)
+
+            mean_values = tf.math.reduce_mean(
+                        log_melgrams, axis=axis, keepdims=True)
+
+            dev_std = tf.math.reduce_std(
+                log_melgrams, axis=axis, keepdims=True) + tf.constant(eps)
+            norm_tensor = (log_melgrams - mean_values)/dev_std
+
+            norm_tensor = tf.reshape(norm_tensor,(-1, norm_tensor.shape[2], 1))
+
+            norm_tensor = tf.reshape(norm_tensor,(1, norm_tensor.shape[0], norm_tensor.shape[1],norm_tensor.shape[2]))
+            
             b=sess.run(norm_tensor) 
         
         result=self.session.run([self.output_name],{self.input_name:b})
