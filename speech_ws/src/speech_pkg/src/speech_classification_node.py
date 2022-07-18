@@ -130,8 +130,9 @@ class Classifier:
         l=[]
         for ele in result[0]:
             l.append("{:.13f}".format(float(ele)))
-        yPredMax =  np.argmax(result)
-        return yPredMax,l[yPredMax]
+        yPredMax =  np.argmax(result).item()
+        
+        return yPredMax,result
         
 
 
