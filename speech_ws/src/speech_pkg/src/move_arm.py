@@ -46,7 +46,6 @@ def main(session):
     
 
     time.sleep(3.0)
-    motion_service.setStiffnesses("LArm", 0.0)
 
 
 if __name__ == "__main__":
