@@ -135,13 +135,13 @@ class Classifier:
 
         yPredMax =  np.argmax(result)
         
-        b=Float32MultiArray()
-        b.data=result[0]
+        l=[]
+        l.append(result[0][0])
         
-        print(yPredMax,type(yPredMax),type(result),b)
+        print(yPredMax,type(yPredMax),type(result))
 
         
-        return yPredMax.item(),result
+        return yPredMax.item(),l
         
 
 
