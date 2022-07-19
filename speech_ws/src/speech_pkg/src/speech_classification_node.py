@@ -135,7 +135,7 @@ class Classifier:
 
         yPredMax =  np.argmax(result)
         a=Int8()
-        a.data=yPredMax[0]
+        a.data=yPredMax
         b=Float32MultiArray()
         b.data=result
         
