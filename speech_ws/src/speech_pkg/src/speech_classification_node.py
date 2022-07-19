@@ -141,7 +141,7 @@ class Classifier:
         print(yPredMax,type(yPredMax),type(result),b)
 
         
-        return yPredMax,b
+        return yPredMax.item(),b
         
 
 
