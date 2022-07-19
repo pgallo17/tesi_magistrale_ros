@@ -67,7 +67,7 @@ def callback(req):
     if prob > 0.5 :
         say(get_command_str(req.cmd))
     else:
-        say(get_command_str(len(command_eng)))
+        say(get_command_str(len(command_eng)-1))
     
     return TalkerResponse(True)
 
@@ -88,7 +88,7 @@ def connect_robot():
     #TextToSpeech service
     tts = session.service("ALTextToSpeech")
     tts.setLanguage("Italian" if args.lang == "ita" else "English")
-    tts.say("Hello")
+    tts.say("Ciao")
     return tts
 
 def say(out_str):
