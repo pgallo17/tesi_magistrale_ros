@@ -135,8 +135,7 @@ class Classifier:
 
         yPredMax =  np.argmax(result)
         
-        l=[]
-        l.append(result[0][0])
+        l=result[0].flatten().tolist()
         
         print(yPredMax,type(yPredMax),type(result))
 
