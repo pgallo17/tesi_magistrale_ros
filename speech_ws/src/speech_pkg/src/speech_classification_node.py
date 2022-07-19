@@ -5,7 +5,6 @@ import numpy as np
 from speech_pkg.srv import Classification, ClassificationResponse
 from settings import pepper, global_utils
 from std_msgs.msg import String,Int8,Float32MultiArray 
-import torch
 import rospy
 import sys
 from pathlib import Path
@@ -74,11 +73,11 @@ class Classifier:
         sound = sound.squeeze()  # depends on the use case
         return sound
 
-    def _numpy2tensor(self, signal: np.ndarray):
+    '''def _numpy2tensor(self, signal: np.ndarray):
         signal_size = signal.size
         signal_torch = torch.as_tensor(signal, dtype=torch.float32)
         signal_size_torch = torch.as_tensor(signal_size, dtype=torch.int64)
-        return signal_torch, signal_size_torch
+        return signal_torch, signal_size_torch'''
 
     def convert(self, signal):
         signal = np.array(signal)
