@@ -53,6 +53,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     
     parser.add_argument("--ip", required=True, dest="ip", type=str)
+    parser.add_argument("--lang", required=True, dest="lang", type=str)
     args, unknown = parser.parse_known_args(args=rospy.myargv(argv=sys.argv)[1:])
     IP = args.ip 
     session,tts = connect_robot(IP)
