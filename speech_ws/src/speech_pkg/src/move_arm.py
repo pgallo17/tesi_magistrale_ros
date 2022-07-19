@@ -56,8 +56,6 @@ if __name__ == "__main__":
     IP = args.ip
     session,tts = connect_robot(IP)
 
-    session = qi.Session()
-
     main(session)
     rospy.init_node('motion')
     rospy.spin()
