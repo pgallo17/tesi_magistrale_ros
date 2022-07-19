@@ -63,8 +63,12 @@ def callback(req):
         fil.write("*" * 30)
         fil.write("\n")'''
     print(out_str)
-    say(get_command_str(req.cmd))
-    print(get_command_str(req.cmd))
+    _,prob=bests[0]
+    if prob > 0.5 :
+        say(get_command_str(req.cmd))
+    else:
+        say(get_command_str(len(command_eng)))
+    
     return TalkerResponse(True)
 
 def init_dict():
