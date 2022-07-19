@@ -64,7 +64,7 @@ def callback(req):
         fil.write("\n")'''
     print(out_str)
     say(get_command_str(req.cmd))
-    # print(get_command_str(req.cmd))
+    print(get_command_str(req.cmd))
     return TalkerResponse(True)
 
 def init_dict():
