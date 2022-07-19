@@ -57,11 +57,11 @@ def create_string(cmd, bests, reject_prob):
 def callback(req):
     bests, reject_prob = get_bests(req.probs)
     out_str = create_string(req.cmd, bests, reject_prob)
-    with open("/home/files/res.txt", "a") as fil:
+    '''with open("/home/files/res.txt", "a") as fil:
         fil.write("*"*30)
         fil.write(out_str)
         fil.write("*" * 30)
-        fil.write("\n")
+        fil.write("\n")'''
     print(out_str)
     say(get_command_str(req.cmd))
     # print(get_command_str(req.cmd))
@@ -69,7 +69,7 @@ def callback(req):
 
 def init_dict():
     command_eng[len(command_eng)] = "I do not understand"
-    command_ita[len(command_ita)] = "Comando non supportato"
+    command_ita[len(command_ita)] = "Comando non riconosciuto"
 
 def connect_robot():
     # Connect to the robot
