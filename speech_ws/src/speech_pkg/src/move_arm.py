@@ -1,4 +1,5 @@
-
+#!/usr/bin/python
+# coding=utf-8
 import qi
 import argparse
 import sys
