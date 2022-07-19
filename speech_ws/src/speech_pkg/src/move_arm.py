@@ -55,6 +55,7 @@ if __name__ == "__main__":
     args, unknown = parser.parse_known_args(args=rospy.myargv(argv=sys.argv)[1:])
     IP = args.ip 
     session,tts = connect_robot(IP)
+    print('check1')
 
     main(session)
     rospy.init_node('motion')
