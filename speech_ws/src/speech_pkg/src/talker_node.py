@@ -64,7 +64,7 @@ def callback(req):
         fil.write("\n")'''
     print(out_str)
     _,prob=bests[0]
-    if prob > 0.5 :
+    if prob > 0.8 :
         say(get_command_str(req.cmd))
     else:
         say(get_command_str(len(command_eng)-1))
