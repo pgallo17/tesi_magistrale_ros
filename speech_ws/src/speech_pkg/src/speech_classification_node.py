@@ -56,9 +56,9 @@ class Classifier:
     def __init__(self, lang):
         self.model = ModelID((None,1))
         
-        base_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("nosynt_cos_mean_75")
+        '''base_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("nosynt_cos_mean_75")
         exp_dir = base_path.joinpath("distiller_ita_no_synt.h5")
-        print(exp_dir)
+        print(exp_dir)'''
         onnx_model = '/../../home/speech_ws/nosynt_cos_mean_75/model.onnx'
         self.session=onnxruntime.InferenceSession(onnx_model,None,providers=['CPUExecutionProvider'])
         self.input_name=self.session.get_inputs()[0].name
@@ -134,15 +134,14 @@ class Classifier:
         
 
         yPredMax =  np.argmax(result)
-        a=Int8()
-        a.data=yPredMax
-        b=Float32MultiArray()
-        b.data=result
         
-        print(yPredMax,type(yPredMax),type(result),a,b)
+        b=Float32MultiArray()
+        b.data=result[0]
+        
+        print(yPredMax,type(yPredMax),type(result),b)
 
         
-        return a,b
+        return yPredMax,b
         
 
 
