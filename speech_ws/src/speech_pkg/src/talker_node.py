@@ -66,7 +66,10 @@ def callback(req):
     _,prob=bests[0]
     if prob > 0.8 :
         if req.cmd in range(20,26):
-            move_wheels(req.cmd)
+            if req.cmd==22 or req.cmd==23:
+                move_head(req.cmd)
+            else:
+                move_wheels(req.cmd)
         elif req.cmd in range(6,16) or req.cmd==26 or req.cmd==27:
             say(get_command_str(req.cmd))
             move_arm()
@@ -96,6 +99,22 @@ def connect_robot():
     tts.say("Ciao")
     return tts,motion_service
 
+def move_head(cmd):
+    names  = ["HeadPitch"]
+    fractionMaxSpeed  = 0.2
+    if cmd==22:
+        angles=0.2
+    elif cmd==23:
+        angles=0
+    try:
+        motion_service.setAngles("HeadPitch", angles, fractionMaxSpeed)
+    except Exception:
+        session = qi.Session()
+        session.connect('tcp://%s:9559' % IP )
+        motion_service = session.service("ALMotion")
+        motion_service.setStiffnesses("Head", 1.0)
+        motion_service.setAngles("HeadPitch", angles, fractionMaxSpeed)
+
 def move_wheels(cmd):
     x  = 0
     y  = 0
@@ -124,10 +143,11 @@ def move_arm():
         motion_service.setStiffnesses("LArm", 1.0)
         motion_service.setAngles(names, angles, fractionMaxSpeed)
         time.sleep(3.0)
-        motion_service.changeAngles(names, 0.7, fractionMaxSpeed)
+        print('change')
+        motion_service.setAngles(names, 0.5, fractionMaxSpeed)
         time.sleep(2.0)
-        '''motion_service.setAngles(names, 0.7, fractionMaxSpeed)
-        time.sleep(2.0)'''
+        motion_service.setAngles(names, 0.7, fractionMaxSpeed)
+        time.sleep(2.0)
         motion_service.setStiffnesses("LArm", 0.0)     
     except Exception:
         session = qi.Session()
@@ -136,6 +156,11 @@ def move_arm():
         motion_service.setStiffnesses("LArm", 1.0)
         motion_service.setAngles(names, angles, fractionMaxSpeed)
         time.sleep(3.0)
+        print('change')
+        motion_service.setAngles(names, 0.5, fractionMaxSpeed)
+        time.sleep(2.0)
+        motion_service.setAngles(names, 0.7, fractionMaxSpeed)
+        time.sleep(2.0)
         motion_service.setStiffnesses("LArm", 0.0)
     
 
