@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from model import ModelID
+
 import numpy as np
 from speech_pkg.srv import Classification, ClassificationResponse
 from settings import pepper, global_utils
@@ -53,7 +53,7 @@ assert num_fft // 2 + 1 == num_spec_bins
 
 class Classifier:
     def __init__(self, lang):
-        self.model = ModelID((None,1))
+        #self.model = ModelID((None,1))
         
         '''base_path = Path(global_utils.get_curr_dir(__file__)).parent.joinpath("nosynt_cos_mean_75")
         exp_dir = base_path.joinpath("distiller_ita_no_synt.h5")
