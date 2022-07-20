@@ -52,7 +52,7 @@ def main(session):
     '''
     rospy.sleep(3.0)
     #motion_service.setStiffnesses("LArm", 0.0)
-    motion_service.stopMove()
+    
 
 
 if __name__ == "__main__":
