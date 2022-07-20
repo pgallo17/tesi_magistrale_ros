@@ -39,7 +39,7 @@ def main(session):
     motion_service.setStiffnesses("LArm", 1.0)
     motion_service.moveInit()
 
-    x  = 0.5
+    x  = 0.1
     y  = 0
     theta  = 0
     motion_service.moveToward(x, y, theta)
@@ -51,7 +51,7 @@ def main(session):
     motion_service.setAngles(names, angles, fractionMaxSpeed)
     
     '''
-    time.sleep(3.0)
+    time.sleep(2.0)
     print('STOP')
     motion_service.stopMove()
     #motion_service.setStiffnesses("LArm", 0.0)
