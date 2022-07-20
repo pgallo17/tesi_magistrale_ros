@@ -38,7 +38,7 @@ def main(session):
 
     motion_service.setStiffnesses("LArm", 1.0)
 
-    x     = 1.0
+    x     = 0.1
     y     = 0.0
     theta = 0.0
     frequency = 1.0
