@@ -48,7 +48,7 @@ def main(session):
     #motion_service.moveInit()
 
     x  = 0
-    y  = -0.5
+    y  = 0.5
     theta  = 0
     motion_service.moveTo(x,y,theta)
 
