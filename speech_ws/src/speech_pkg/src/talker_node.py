@@ -38,14 +38,11 @@ def main(session):
 
     motion_service.setStiffnesses("LArm", 1.0)
 
-    x     = 0.1
+    x     = 0.5
     y     = 0.0
     theta = 0.0
     frequency = 1.0
     motion_service.moveToward(x, y, theta)
-    time.sleep(3.0)
-
-    motion_service.stopMove()
 
     # Example showing how to set angles, using a fraction of max speed
     names  = ["LShoulderPitch"]
