@@ -102,18 +102,22 @@ def connect_robot():
 def move_head(cmd):
     names  = ["HeadPitch"]
     fractionMaxSpeed  = 0.2
-    if cmd==22:
+    if cmd==23:
         angles=0.2
-    elif cmd==23:
-        angles=0
+    elif cmd==22:
+        angles=-0.1
     try:
         motion_service.setAngles("HeadPitch", angles, fractionMaxSpeed)
+        time.sleep(2.0)
+        motion_service.setStiffnesses("Head", 0.0)
     except Exception:
         session = qi.Session()
         session.connect('tcp://%s:9559' % IP )
         motion_service = session.service("ALMotion")
         motion_service.setStiffnesses("Head", 1.0)
         motion_service.setAngles("HeadPitch", angles, fractionMaxSpeed)
+        time.sleep(2.0)
+        motion_service.setStiffnesses("Head", 0.0)
 
 def move_wheels(cmd):
     x  = 0
@@ -159,8 +163,7 @@ def move_arm():
         print('change')
         motion_service.setAngles(names, 0.5, fractionMaxSpeed)
         time.sleep(2.0)
-        motion_service.setAngles(names, 0.7, fractionMaxSpeed)
-        time.sleep(2.0)
+        motion_service.setAngles(names, 0.8, fractionMaxSpeed)
         motion_service.setStiffnesses("LArm", 0.0)
     
 
