@@ -43,10 +43,10 @@ def main(session):
     angles  = [0]
     fractionMaxSpeed  = 0.2
     motion_service.setAngles(names, angles, fractionMaxSpeed)
-    motion_service.setStiffnesses("LArm", 0.0)
+    
 
     time.sleep(3.0)
-    
+    #motion_service.setStiffnesses("LArm", 0.0)
 
 
 if __name__ == "__main__":
