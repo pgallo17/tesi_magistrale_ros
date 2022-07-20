@@ -40,7 +40,7 @@ def main(session):
 
     # Example showing how to set angles, using a fraction of max speed
     names  = ["LShoulderPitch"]
-    angles  = [1]
+    angles  = [0.4]
     fractionMaxSpeed  = 0.2
     motion_service.setAngles(names, angles, fractionMaxSpeed)
     
