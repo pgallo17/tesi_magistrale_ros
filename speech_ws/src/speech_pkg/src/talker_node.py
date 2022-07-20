@@ -66,12 +66,12 @@ def callback(req):
     _,prob=bests[0]
     if prob > 0.8 :
         if req.cmd in range(20,26):
-            move(req.cmd)
-        else:
+            move_wheels(req.cmd)
+        elif req.cmd in range(6,16) or req.cmd==26 or req.cmd==27:
             say(get_command_str(req.cmd))
+            move_arm()
     else:
         say(get_command_str(len(command_eng)-1))
-    
     return TalkerResponse(True)
 
 def init_dict():
@@ -94,7 +94,7 @@ def connect_robot():
     tts.say("Ciao")
     return tts,motion_service
 
-def move(cmd):
+def move_wheels(cmd):
     x  = 0
     y  = 0
     theta = 0
@@ -111,9 +111,26 @@ def move(cmd):
     except Exception:
         session = qi.Session()
         session.connect('tcp://%s:9559' % IP )
-
         motion_service = session.service("ALMotion")
         motion_service.moveTo(x,y,theta)
+    
+def move_arm():
+    names  = ["LShoulderPitch"]
+    angles  = [0.5]
+    fractionMaxSpeed  = 0.2
+    try:
+        motion_service.setStiffnesses("LArm", 1.0)
+        motion_service.setAngles(names, angles, fractionMaxSpeed)
+        time.sleep(3.0)
+        motion_service.setStiffnesses("LArm", 0.0)     
+    except Exception:
+        session = qi.Session()
+        session.connect('tcp://%s:9559' % IP )
+        motion_service = session.service("ALMotion")
+        motion_service.setStiffnesses("LArm", 1.0)
+        motion_service.setAngles(names, angles, fractionMaxSpeed)
+        time.sleep(3.0)
+        motion_service.setStiffnesses("LArm", 0.0)
     
 
 def say(out_str):

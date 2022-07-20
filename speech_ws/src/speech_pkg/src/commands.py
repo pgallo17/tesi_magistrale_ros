@@ -31,8 +31,8 @@ command_eng = {
 }
 
 command_ita = {
-    0: "Apro la finestra?",
-    1: "Va bene vampiro",
+    0: "Devo aprire la finestra?",
+    1: "Meno luce",
     2: "Più alto",
     3: "Più basso",
     4: "Più inclinato",
