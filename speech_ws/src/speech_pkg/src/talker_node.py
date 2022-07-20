@@ -42,7 +42,7 @@ def main(session):
     y     = 0.0
     theta = 0.0
     frequency = 1.0
-    motion_service.moveToward(x, y, theta, [["Frequency", frequency]])
+    motion_service.moveToward(x, y, theta)
     time.sleep(3.0)
 
     motion_service.stopMove()
