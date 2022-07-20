@@ -36,17 +36,17 @@ def main(session):
 
     motion_service  = session.service("ALMotion")
 
-    motion_service.setStiffnesses("LArm", 1.0)
+    #motion_service.setStiffnesses("LArm", 1.0)
 
     # Example showing how to set angles, using a fraction of max speed
     names  = ["LShoulderPitch"]
-    angles  = [0.7]
-    fractionMaxSpeed  = 0.2
+    angles  = [0.5]
+    fractionMaxSpeed  = 0.5
     motion_service.setAngles(names, angles, fractionMaxSpeed)
     
 
     time.sleep(3.0)
-    motion_service.setStiffnesses("LArm", 0.0)
+    #motion_service.setStiffnesses("LArm", 0.0)
 
 
 if __name__ == "__main__":
