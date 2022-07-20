@@ -62,6 +62,9 @@ def main(session):
     print('before sleep')
     time.sleep(5.0)
     print('STOP')
+    navigation_service.navigateTo(0.5, 0.0)
+    time.sleep(5.0)
+    print('STOP')
     
     #motion_service.setStiffnesses("LArm", 0.0)
     
