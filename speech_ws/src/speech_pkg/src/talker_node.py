@@ -24,7 +24,7 @@ def connect_robot(IP):
     #TextToSpeech service
     tts = session.service("ALTextToSpeech")
     tts.setLanguage("Italian" if args.lang == "ita" else "English")
-    tts.say("Ciao")
+    tts.say("Ciao ANTONIO")
     return session,tts
 
 
@@ -41,13 +41,13 @@ def main(session):
 
     # Example showing how to set angles, using a fraction of max speed
     names  = "LShoulderPitch"
-    angles  = math.radians(30)
+    angles  = math.radians(45)
     fractionMaxSpeed  = 0.2
     motion_service.setAngles(names, angles, fractionMaxSpeed)
     
 
     time.sleep(3.0)
-    #motion_service.setStiffnesses("LArm", 0.0)
+    motion_service.setStiffnesses("LArm", 0.0)
 
 
 if __name__ == "__main__":
