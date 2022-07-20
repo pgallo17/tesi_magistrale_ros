@@ -124,7 +124,7 @@ def move_arm():
         motion_service.setStiffnesses("LArm", 1.0)
         motion_service.setAngles(names, angles, fractionMaxSpeed)
         time.sleep(3.0)
-        motion_service.setAngles(names, 0.2, fractionMaxSpeed)
+        motion_service.changeAngles(names, 0.2, fractionMaxSpeed)
         time.sleep(2.0)
         '''motion_service.setAngles(names, 0.7, fractionMaxSpeed)
         time.sleep(2.0)'''
