@@ -52,7 +52,7 @@ def main(session):
     
     '''
     print('before sleep')
-    time.sleep(2.0)
+    time.sleep(5.0)
     print('STOP')
     motion_service.stopMove()
     #motion_service.setStiffnesses("LArm", 0.0)
