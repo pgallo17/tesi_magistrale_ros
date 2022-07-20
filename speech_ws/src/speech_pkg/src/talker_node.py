@@ -5,6 +5,7 @@ import argparse
 import sys
 import time
 import rospy
+import almath
 
 def connect_robot(IP):
     # Connect to the robot
@@ -39,8 +40,8 @@ def main(session):
     motion_service.setStiffnesses("LArm", 1.0)
 
     # Example showing how to set angles, using a fraction of max speed
-    names  = ["LShoulderPitch"]
-    angles  = [1.5]
+    names  = "LShoulderPitch"
+    angles  = 30.0*almath.TO_RAD
     fractionMaxSpeed  = 0.2
     motion_service.setAngles(names, angles, fractionMaxSpeed)
     
