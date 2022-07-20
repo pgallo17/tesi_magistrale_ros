@@ -35,6 +35,13 @@ def main(session):
     # Get the service ALMotion.
 
     motion_service  = session.service("ALMotion")
+    posture_service = session.service("ALRobotPosture")
+
+    # Wake up robot
+    motion_service.wakeUp()
+
+    # Send robot to Pose Init
+    #posture_service.goToPosture("StandInit", 0.5)
 
     motion_service.setStiffnesses("LArm", 1.0)
     motion_service.moveInit()
@@ -54,7 +61,7 @@ def main(session):
     print('before sleep')
     time.sleep(5.0)
     print('STOP')
-    motion_service.stopMove()
+    
     #motion_service.setStiffnesses("LArm", 0.0)
     
 
