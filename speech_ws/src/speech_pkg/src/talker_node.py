@@ -50,7 +50,8 @@ def main(session):
     motion_service.setAngles(names, angles, fractionMaxSpeed)
     
     '''
-    time.sleep(5.0)
+    time.sleep(3.0)
+    print('STOP')
     motion_service.stopMove()
     #motion_service.setStiffnesses("LArm", 0.0)
     
