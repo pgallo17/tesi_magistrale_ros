@@ -2,5 +2,5 @@
    
     <arg name="ip" default="10.0.1.230"/>
     <arg name="lang" default="ita"/>
-    <node name="motion" pkg="speech_pkg" type="move_arm.py" args="--lang $(arg lang) --ip $(arg ip)"/>
+    <node name="motion" pkg="speech_pkg" type="talker_node.py" args="--lang $(arg lang) --ip $(arg ip)"/>
 </launch>
