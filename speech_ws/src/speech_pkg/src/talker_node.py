@@ -35,6 +35,7 @@ def main(session):
     # Get the service ALMotion.
 
     motion_service  = session.service("ALMotion")
+    navigation_service = session.service("ALNavigation")
     posture_service = session.service("ALRobotPosture")
 
     # Wake up robot
@@ -44,12 +45,12 @@ def main(session):
     #posture_service.goToPosture("StandInit", 0.5)
 
     motion_service.setStiffnesses("LArm", 1.0)
-    motion_service.moveInit()
+    #motion_service.moveInit()
 
     x  = 0
     y  = -0.5
     theta  = 0
-    motion_service.moveTo(x, y, theta)
+    navigation_service.navigateTo(0.2, 0.0, [["SpeedFactor", 0.5]])
 
     '''# Example showing how to set angles, using a fraction of max speed
     names  = ["LShoulderPitch"]
