@@ -38,10 +38,10 @@ def main(session):
 
     motion_service.setStiffnesses("LArm", 1.0)
 
-    x  = 0.4
+    x  = 0.2
     y  = 0
     theta  = 0
-    motion_service.moveTo(x, y, theta)
+    motion_service.moveToward(x, y, theta)
 
     '''# Example showing how to set angles, using a fraction of max speed
     names  = ["LShoulderPitch"]
@@ -50,7 +50,7 @@ def main(session):
     motion_service.setAngles(names, angles, fractionMaxSpeed)
     
     '''
-    time.sleep(3.0)
+    rospy.sleep(3.0)
     #motion_service.setStiffnesses("LArm", 0.0)
     motion_service.stopMove()
 
