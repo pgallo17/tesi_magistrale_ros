@@ -50,7 +50,7 @@ def main(session):
     x  = 0
     y  = -0.5
     theta  = 0
-    navigation_service.navigateTo(0.5, 0.0)
+    navigation_service.navigateTo(1.5, 0.0)
 
     '''# Example showing how to set angles, using a fraction of max speed
     names  = ["LShoulderPitch"]
@@ -62,7 +62,7 @@ def main(session):
     print('before sleep')
     time.sleep(5.0)
     print('STOP')
-    navigation_service.navigateTo(0.5, 0.0)
+    navigation_service.navigateTo(1.5, 0.0)
     time.sleep(5.0)
     print('STOP')
     
