@@ -70,6 +70,8 @@ def callback(req):
         elif req.cmd in range(6,16) or req.cmd==26 or req.cmd==27:
             say(get_command_str(req.cmd))
             move_arm()
+        else :
+            say(get_command_str(req.cmd))
     else:
         say(get_command_str(len(command_eng)-1))
     return TalkerResponse(True)
@@ -116,12 +118,14 @@ def move_wheels(cmd):
     
 def move_arm():
     names  = ["LShoulderPitch"]
-    angles  = [0.5]
+    angles  = [0.3]
     fractionMaxSpeed  = 0.2
     try:
         motion_service.setStiffnesses("LArm", 1.0)
         motion_service.setAngles(names, angles, fractionMaxSpeed)
         time.sleep(3.0)
+        motion_service.setAngles(names, 0.7, fractionMaxSpeed)
+        time.sleep(2.0)
         motion_service.setStiffnesses("LArm", 0.0)     
     except Exception:
         session = qi.Session()
