@@ -106,7 +106,15 @@ def move(cmd):
         x+=0.2
     elif cmd==25:
         x-=0.2
-    motion_service.moveTo(x,y,theta)
+
+    try:
+        motion_service.moveTo(x,y,theta)
+    except Exception:
+        session = qi.Session()
+        session.connect('tcp://%s:9559' % IP )
+
+        motion_service = session.service("ALMotion")
+        motion_service.moveTo(x,y,theta)
     
 
 def say(out_str):
