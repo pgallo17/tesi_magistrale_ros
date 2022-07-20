@@ -106,7 +106,6 @@ def move(cmd):
         x+=0.2
     elif cmd==25:
         x-=0.2
-
     try:
         motion_service.moveTo(x,y,theta)
     except Exception:
