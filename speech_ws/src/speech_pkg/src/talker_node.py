@@ -51,6 +51,7 @@ def main(session):
     motion_service.setAngles(names, angles, fractionMaxSpeed)
     
     '''
+    print('before sleep')
     time.sleep(2.0)
     print('STOP')
     motion_service.stopMove()
