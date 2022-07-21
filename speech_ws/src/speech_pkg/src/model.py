@@ -21,8 +21,10 @@ PARAMS = {
 
 
 
-onnx_model = '/../../home/speech_ws/model_onnx/ita_model.onnx'
-session=onnxruntime.InferenceSession(onnx_model,None,providers=['CPUExecutionProvider'])
+onnx_model_ita = '/../../home/speech_ws/model_onnx/ita_model.onnx'
+onnx_model_eng = '/../../home/speech_ws/model_onnx/eng_model.onnx'
+session_ita=onnxruntime.InferenceSession(onnx_model_ita,None,providers=['CPUExecutionProvider'])
+session_eng=onnxruntime.InferenceSession(onnx_model_eng,None,providers=['CPUExecutionProvider'])
 
 
 
