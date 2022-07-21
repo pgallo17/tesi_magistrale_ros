@@ -41,7 +41,7 @@ command_ita = {
     7: "Lo prendo subito",
     8: "Portami l'avvitatore a gomito",
     9: "Prendi l'avvitatore a gomito",
-    10: "Attento alle dita?",
+    10: "Attento alle dita",
     11: "Vuoi anche i chiodi?",
     12: "Portami il cacciavite",
     13: "Prendi il cacciavite",
