@@ -55,8 +55,8 @@ command_ita = {
     21: "Vai a sinistra",
     22: "Vai su",
     23: "Vai giù",
-    24: "Vai avanti",
-    25: "Vai indietro",
+    24: "Ok",
+    25: "Non mettermi lo sgambetto",
     26: "Portami la mostrina comandi",
     27: "Prendi la mostrina comandi"
 }

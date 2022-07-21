@@ -66,13 +66,8 @@ def callback(req):
     _,prob=bests[0]
     if prob > 0.8 :
         if req.cmd in range(20,26):
-            if req.cmd==22 or req.cmd==23:
-                move_head(req.cmd)
-            else:
-                move_wheels(req.cmd)
-        elif req.cmd in range(6,16) or req.cmd==26 or req.cmd==27:
             say(get_command_str(req.cmd))
-            move_arm()
+            move_wheels(req.cmd)    
         else :
             say(get_command_str(req.cmd))
     else:
