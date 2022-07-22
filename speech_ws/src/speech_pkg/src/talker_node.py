@@ -64,7 +64,7 @@ def callback(req):
         fil.write("\n")'''
     print(out_str)
     _,prob=bests[0]
-    if prob > 0.8 :
+    if prob > 0.9 :
         if req.cmd in range(20,26):
             say(get_command_str(req.cmd))
             move_wheels(req.cmd)    
