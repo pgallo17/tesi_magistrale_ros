@@ -13,6 +13,9 @@ import tensorflow as tf
 from lang_settings import AVAILABLE_LANGS
 import os
 import onnxruntime
+import librosa 
+
+tf.compat.v1.enable_eager_execution()
 
 PARAMS = {
     'sample_rate': 16000,
@@ -92,39 +95,41 @@ class Classifier:
 
 
     def predict_cmd(self, signal: np.ndarray):
+        if signal[0]==18:
+            signal,_=librosa.load('/../../home/speech_ws/file_wav/ita_18.wav',sr=16000)
         x=np.reshape(signal,(1,signal.shape[0],1))
         print('classification----------------------------')
 
         # tf.signal.stft seems to be applied along the last axis
-        session=tf.Session()
-        with session as sess:
-            lin_to_mel_matrix = tf.signal.linear_to_mel_weight_matrix(num_mel_bins=num_mel_bins,num_spectrogram_bins=num_spec_bins,
-            sample_rate=sr,lower_edge_hertz=f_min,upper_edge_hertz=f_max,)            
-            stfts = tf.signal.stft(
-                x[:,:,0], frame_length=window_length, frame_step=hop_length, pad_end=pad_end
-            )
-            mag_stfts = tf.abs(stfts)
-       
-            melgrams = tf.tensordot(tf.square(mag_stfts), lin_to_mel_matrix, axes=[2, 0])
-           
-            log_melgrams = self.tf_log10(melgrams + log_offset)
-
-
-            mean_values = tf.math.reduce_mean(
-                        log_melgrams, axis=axis, keepdims=True)
-
-            dev_std = tf.math.reduce_std(
-                log_melgrams, axis=axis, keepdims=True) + tf.constant(eps)
+        '''session=tf.Session()
+        with session as sess:'''
+        lin_to_mel_matrix = tf.signal.linear_to_mel_weight_matrix(num_mel_bins=num_mel_bins,num_spectrogram_bins=num_spec_bins,
+        sample_rate=sr,lower_edge_hertz=f_min,upper_edge_hertz=f_max,)            
+        stfts = tf.signal.stft(
+            x[:,:,0], frame_length=window_length, frame_step=hop_length, pad_end=pad_end
+        )
+        mag_stfts = tf.abs(stfts)
+    
+        melgrams = tf.tensordot(tf.square(mag_stfts), lin_to_mel_matrix, axes=[2, 0])
         
-            norm_tensor = (log_melgrams - mean_values)/dev_std
+        log_melgrams = self.tf_log10(melgrams + log_offset)
 
-            norm_tensor = tf.reshape(norm_tensor,(-1, norm_tensor.shape[2], 1))
 
-            norm_tensor = tf.reshape(norm_tensor,(1, norm_tensor.shape[0], norm_tensor.shape[1],norm_tensor.shape[2]))
-            
-            norm_tensor=sess.run(norm_tensor) 
+        mean_values = tf.math.reduce_mean(
+                    log_melgrams, axis=axis, keepdims=True)
+
+        dev_std = tf.math.reduce_std(
+            log_melgrams, axis=axis, keepdims=True) + tf.constant(eps)
+    
+        norm_tensor = (log_melgrams - mean_values)/dev_std
+
+        norm_tensor = tf.reshape(norm_tensor,(-1, norm_tensor.shape[2], 1))
+
+        norm_tensor = tf.reshape(norm_tensor,(1, norm_tensor.shape[0], norm_tensor.shape[1],norm_tensor.shape[2]))
         
-        result=self.session.run([self.output_name],{self.input_name:norm_tensor})
+        #norm_tensor=sess.run(norm_tensor) 
+        
+        result=self.session.run([self.output_name],{self.input_name:norm_tensor.numpy()})
 
         
         '''l=[]
@@ -144,8 +149,14 @@ class Classifier:
 
 
     def parse_req(self, req):
-        signal = self.convert(req.data.data)
-        cmd, probs = self.predict_cmd(signal)
+        voice=req.data.data
+        voice=[*voice]
+        if voice==[18]:
+            print('start')
+            cmd, probs = self.predict_cmd(np.array(voice))
+        else:
+            signal = self.convert(req.data.data)
+            cmd, probs = self.predict_cmd(signal)
         '''assert len(cmd) == 1
         cmd = int(cmd[0])
         probs = probs.tolist()[0]'''

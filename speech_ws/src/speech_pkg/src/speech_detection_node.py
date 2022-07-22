@@ -12,10 +12,12 @@ from speech_pkg.srv import *
 from utils import MySileroVad
 from pathlib import Path
 #import soundfile as sf
-import torch
+#import torch
 
 import numpy as np
 from time import sleep
+
+
 
 class ROSMicrophoneSource(AudioSource):
 
@@ -124,16 +126,28 @@ class SpeechDetectionNode:
 
         # Loop
         print("before loop")
-        i = 0
+        
         self.enabled = True
+        self.flag = True
+        
+        
+
         while not rospy.is_shutdown():
             if not self.enabled:
                 sleep(.1)
 
                 continue
+            
 
             # Get speech data
             speech, timestamps = self.speechRecognition.get_speech_frame()
+
+            if self.flag: #start first command
+                msg = SpeechData()
+                msg.data = [18]
+                manger_service(msg)
+
+            self.flag = False
 
             if speech is None:
                 continue
@@ -152,10 +166,11 @@ class SpeechDetectionNode:
             # Message publishing
             manger_service(msg)
             # pub.publish(msg)
-            speech_save = np.reshape(speech.copy(), (-1, 1))
+            #speech_save = np.reshape(speech.copy(), (-1, 1))
             #sf.write(f"/home/files/{i}.wav", data=speech_save, samplerate=demo_settings.io.speech.sample_rate,format="WAV")
-            i += 1
+            
             self.enabled = True
+            
             rospy.logdebug('Speech published with timestamps')
 
 if __name__ == '__main__':

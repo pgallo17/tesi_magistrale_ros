@@ -11,6 +11,8 @@ import onnxruntime
 import datetime
 
 
+tf.compat.v1.enable_eager_execution()
+
 PARAMS = {
     'sample_rate': 16000,
     'stft_window_seconds': 0.025,
@@ -20,7 +22,7 @@ PARAMS = {
     'mel_max_hz': 7500.0,
 }
 
-#create dataset.txt
+'''#create dataset.txt
 path='/../../home/speech_ws/Dataset_real_conv/'
 txt=open('dataset.txt','a')
 for elem in os.listdir(path):
@@ -35,15 +37,15 @@ for elem in os.listdir(path):
                         txt.write(path+elem+'/'+e+'/'+sound+'\n')
                     
 
-
+'''
 
 
 onnx_model_ita = '/../../home/speech_ws/model_onnx/ita_model.onnx'
 onnx_model_eng = '/../../home/speech_ws/model_onnx/eng_model.onnx'
 session_ita=onnxruntime.InferenceSession(onnx_model_ita,None,providers=['CPUExecutionProvider'])
 session_eng=onnxruntime.InferenceSession(onnx_model_eng,None,providers=['CPUExecutionProvider'])
-input_name=session_ita.get_inputs()[0].name
-output_name=session_ita.get_outputs()[1].name
+input_name=session_eng.get_inputs()[0].name
+output_name=session_eng.get_outputs()[1].name
 
 def tf_log10(x):
             numerator = tf.math.log(x)
@@ -85,8 +87,10 @@ seconds=[]
 
 path='/../../home/speech_ws/Dataset_real_conv/'
 txt=open('dataset.txt','r')
+i=0
 
 for elem in txt:
+    i+=1
     wav=elem[:-1]
     speech,_=librosa.load(wav,sr=sr)
     x=np.reshape(speech,(1,speech.shape[0],1))
@@ -111,15 +115,22 @@ for elem in txt:
 
     norm_tensor = tf.reshape(norm_tensor,(1, norm_tensor.shape[0], norm_tensor.shape[1],norm_tensor.shape[2]))
     
-    # This works
+    '''     
     session=tf.Session()
     with session as sess:
-        b=sess.run(norm_tensor) # ok because `sess.graph == graph`
-
-    result_ita=session_ita.run([output_name],{input_name:b})
+        tensor=sess.run(norm_tensor) # ok because `sess.graph == graph`
+    '''
+    #pre_inference=datetime.datetime.now()
+    result_ita=session_eng.run([output_name],{input_name:norm_tensor.numpy()})
     second_after=datetime.datetime.now()
+    #delta=second_after-pre_inference
+    #print(delta.total_seconds())
     delta=second_after-second_before
-    seconds.append(delta.total_seconds())
+    if i!=1:
+        seconds.append(delta.total_seconds())
+    print('iterazione',str(i))
+    if i==1001:
+        break
 
 
 
