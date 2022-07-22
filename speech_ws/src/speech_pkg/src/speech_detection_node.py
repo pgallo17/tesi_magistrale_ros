@@ -146,8 +146,10 @@ class SpeechDetectionNode:
                 msg = SpeechData()
                 msg.data = [18]
                 manger_service(msg)
+                self.flag = False
+                continue
 
-            self.flag = False
+            
 
             if speech is None:
                 continue
