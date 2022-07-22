@@ -118,11 +118,7 @@ def move_wheels(cmd):
     x  = 0
     y  = 0
     theta = 0
-    if cmd==20 :
-        y-=0.2
-    elif cmd==21:
-        y+=0.2
-    elif cmd==24:
+    if cmd==24:
         x+=0.2
     elif cmd==25:
         x-=0.2
