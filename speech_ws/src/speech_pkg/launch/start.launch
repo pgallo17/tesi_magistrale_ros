@@ -1,6 +1,6 @@
 <launch>
     <arg name="lang" default="ita"/>
-    <arg name="ip" default="10.0.1.230"/>
+    <arg name="ip" default="10.0.1.207"/>
     <node name="classifier" pkg="speech_pkg" type="speech_classification_node.py" output="screen" args="--lang $(arg lang)"/>
     <node name="talker" pkg="speech_pkg" type="talker_node.py" output="screen" args="--lang $(arg lang) --ip $(arg ip)"/>
     <node name="manager" pkg="speech_pkg" type="manager_node.py" output="screen"/>
