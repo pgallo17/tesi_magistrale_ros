@@ -91,6 +91,7 @@ def connect_robot():
     #TextToSpeech service
     tts = session.service("ALTextToSpeech")
     tts.setLanguage("Italian" if args.lang == "ita" else "English")
+    tts.setVolume(0)
     tts.say("Ciao")
     return tts,motion_service
 
@@ -129,6 +130,9 @@ def move_wheels(cmd):
         session.connect('tcp://%s:9559' % IP )
         motion_service = session.service("ALMotion")
         motion_service.moveTo(x,y,theta)
+        tts = session.service("ALTextToSpeech")
+        tts.setLanguage("Italian" if args.lang == "ita" else "English")
+        tts.setVolume(0.5)
     
 def move_arm():
     names  = ["LShoulderPitch"]
@@ -167,6 +171,7 @@ def say(out_str):
 
         tts = session.service("ALTextToSpeech")
         tts.setLanguage("Italian" if args.lang == "ita" else "English")
+        
         tts.say(out_str)
     # time.sleep(0.5)
 
