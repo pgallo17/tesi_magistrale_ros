@@ -132,7 +132,7 @@ def move_wheels(cmd):
         motion_service.moveTo(x,y,theta)
         tts = session.service("ALTextToSpeech")
         tts.setLanguage("Italian" if args.lang == "ita" else "English")
-        tts.setVolume(0.5)
+        tts.setVolume(0.7)
     
 def move_arm():
     names  = ["LShoulderPitch"]
